@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    background-color: #08080a;
+    color: #f3f4f6;
+    overflow-x: hidden;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #08080a;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(139, 92, 246, 0.5);
+}
+
+/* Fluid Typography Clamps */
+.hero-headline {
+  font-size: clamp(2.2rem, 5vw + 1rem, 4.5rem);
+  line-height: 1.05;
+}
+
+.section-headline {
+  font-size: clamp(1.75rem, 3vw + 0.5rem, 3rem);
+  line-height: 1.15;
+}
+
+/* Right-click & Selection protection utilities */
+.protected-visual {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-user-drag: none;
+}

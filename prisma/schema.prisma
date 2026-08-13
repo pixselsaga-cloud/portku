@@ -1,0 +1,163 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Project {
+  id              String           @id @default(uuid())
+  slug            String           @unique
+  title           String
+  category        String
+  description     String
+  client          String?
+  year            String?
+  featured        Boolean          @default(false)
+  status          String           @default("published")
+  coverImage      String
+  gallery         String
+  tools           String
+  services        String
+  beforeAfter     String?
+  videoUrl        String?
+  processSteps    String?
+  finalResult     String?
+  downloadRule    String           @default("allowed")
+  views           Int              @default(0)
+  uniqueViews     Int              @default(0)
+  likes           Int              @default(0)
+  saves           Int              @default(0)
+  shares          Int              @default(0)
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+  files           ProjectFile[]
+  analytics       AnalyticsEvent[]
+}
+
+model ProjectFile {
+  id                 String   @id @default(uuid())
+  projectId          String?
+  project            Project? @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  filename           String
+  description        String?
+  category           String?
+  fileUrl            String
+  fileSize           Int
+  format             String
+  version            String   @default("v1.0")
+  downloadPermission String   @default("allowed")
+  downloadCount      Int      @default(0)
+  createdAt          DateTime @default(now())
+}
+
+model ServiceItem {
+  id          String   @id @default(uuid())
+  icon        String   @default("Palette")
+  titleUz     String
+  titleRu     String?
+  titleEn     String?
+  descUz      String
+  descRu      String?
+  descEn      String?
+  buttonText  String   @default("Request Service")
+  buttonUrl   String   @default("/request")
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model StatItem {
+  id        String   @id @default(uuid())
+  value     String
+  labelUz   String
+  labelRu   String?
+  labelEn   String?
+  icon      String   @default("Award")
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Message {
+  id          String    @id @default(uuid())
+  name        String
+  email       String
+  phone       String?
+  message     String
+  status      String    @default("new")
+  scheduledAt DateTime?
+  createdAt   DateTime  @default(now())
+}
+
+model DesignRequest {
+  id              String   @id @default(uuid())
+  clientName      String
+  email           String
+  phone           String
+  services        String
+  projectDetails  String
+  targetAudience  String?
+  stylePreference String?
+  deadline        String?
+  budget          String?
+  attachments     String?
+  aiBrief         String?
+  status          String   @default("pending")
+  createdAt       DateTime @default(now())
+}
+
+model ClientProject {
+  id           String           @id @default(uuid())
+  title        String
+  clientName   String
+  clientEmail  String
+  accessCode   String           @unique
+  status       String           @default("in_progress")
+  description  String?
+  deliverables String?
+  createdAt    DateTime         @default(now())
+  feedbacks    ClientFeedback[]
+}
+
+model ClientFeedback {
+  id              String        @id @default(uuid())
+  clientProjectId String
+  clientProject   ClientProject @relation(fields: [clientProjectId], references: [id], onDelete: Cascade)
+  sender          String
+  comment         String
+  createdAt       DateTime      @default(now())
+}
+
+model AnalyticsEvent {
+  id        String   @id @default(uuid())
+  eventType String
+  projectId String?
+  project   Project? @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  path      String?
+  referrer  String?
+  country   String   @default("Uzbekistan")
+  device    String   @default("Desktop")
+  browser   String   @default("Chrome")
+  ipHash    String?
+  createdAt DateTime @default(now())
+}
+
+model SiteSetting {
+  id            String   @id @default("1")
+  ownerName     String   @default("Otajon Jahongirov")
+  headline      String   @default("Graphic Designer & Creative Digital Artist")
+  bio           String
+  phone         String   @default("+998 88 919 18 09")
+  email         String   @default("pixselsaga@gmail.com")
+  telegram      String   @default("https://t.me/otajon9999")
+  instagram     String   @default("https://instagram.com/ustozmee")
+  behance       String   @default("")
+  dribbble      String   @default("")
+  linkedin      String   @default("")
+  cvUrl         String   @default("/assets/Otajon_Jahongirov_CV.pdf")
+  watermarkText String   @default("PORTFOLIO PREVIEW — OTAJON JAHONGIROV")
+  updatedAt     DateTime @updatedAt
+}
