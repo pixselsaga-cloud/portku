@@ -8,18 +8,18 @@ export default function AboutPage() {
   const { t } = useLanguage();
 
   const skills = [
-    { name: '3D CGI & Blender Rendering', level: 95 },
-    { name: 'Brutalists & Key Visual Posters', level: 98 },
-    { name: 'Brand Identity Systems', level: 92 },
-    { name: 'Dark Mode UI/UX & Figma Kits', level: 90 },
-    { name: 'Motion Graphics & After Effects', level: 88 },
-    { name: 'Color Grading & Commercial Cut', level: 86 },
+    { name: t('about_skill_1'), level: 95 },
+    { name: t('about_skill_2'), level: 98 },
+    { name: t('about_skill_3'), level: 92 },
+    { name: t('about_skill_4'), level: 90 },
+    { name: t('about_skill_5'), level: 88 },
+    { name: t('about_skill_6'), level: 86 },
   ];
 
   const experienceTimeline = [
-    { year: '2025 — Present', role: 'Founder & Principal Creative Director', company: 'Otajon Jahongirov Studio' },
-    { year: '2024 — 2025', role: 'Senior Visual & 3D Artist', company: 'Digital Wave Agency' },
-    { year: '2023 — 2024', role: 'Graphic & Brand Identity Designer', company: 'Creative Atelier' },
+    { year: t('about_exp_present'), role: t('about_exp_role_1'), company: t('about_exp_company_1') },
+    { year: '2024 — 2025', role: t('about_exp_role_2'), company: t('about_exp_company_2') },
+    { year: '2023 — 2024', role: t('about_exp_role_3'), company: t('about_exp_company_3') },
   ];
 
   return (
@@ -39,7 +39,7 @@ export default function AboutPage() {
           <div className="absolute bottom-6 left-6 right-6">
             <span className="text-xs font-mono text-accent-purple uppercase tracking-wider font-bold">{t('about_role')}</span>
             <h2 className="font-display font-bold text-white text-2xl">Otajon Jahongirov</h2>
-            <p className="text-gray-400 text-xs mt-0.5">Tashkent, Uzbekistan • Global Remote</p>
+            <p className="text-gray-400 text-xs mt-0.5">{t('about_location')}</p>
           </div>
         </div>
 
@@ -50,7 +50,7 @@ export default function AboutPage() {
               {t('nav_about')}
             </span>
             <h1 className="hero-headline font-display font-bold text-white tracking-tight">
-              Graphic Designer & Creative Digital Artist
+              {t('about_headline')}
             </h1>
           </div>
 

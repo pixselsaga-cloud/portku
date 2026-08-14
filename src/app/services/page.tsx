@@ -105,7 +105,7 @@ export default function ServicesPage() {
                     href={svc.buttonUrl || '/request'}
                     className="inline-flex items-center gap-2 text-xs font-semibold text-accent-purple hover:text-white transition-colors group-hover:translate-x-1 transition-transform"
                   >
-                    <span>{svc.buttonText || 'Request Service'}</span>
+                    <span>{svc.buttonText || t('request_service_fallback')}</span>
                     <ArrowRight className="w-3.5 h-3.5" />
                   </Link>
                 </div>

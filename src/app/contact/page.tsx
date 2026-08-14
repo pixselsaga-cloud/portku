@@ -120,7 +120,7 @@ export default function ContactPage() {
                 <Phone className="w-5 h-5" />
               </div>
               <div>
-                <span className="text-[11px] font-mono uppercase text-gray-500 block mb-0.5">Direct Phone</span>
+                <span className="text-[11px] font-mono uppercase text-gray-500 block mb-0.5">{t('contact_direct_phone')}</span>
                 <div className="flex items-center gap-2">
                   <a href={`tel:${phoneNum.replace(/\s+/g, '')}`} className="font-mono text-white text-sm font-bold hover:text-accent-purple transition-colors">
                     {phoneNum}
@@ -137,7 +137,7 @@ export default function ContactPage() {
                 <Mail className="w-5 h-5" />
               </div>
               <div>
-                <span className="text-[11px] font-mono uppercase text-gray-500 block mb-0.5">Studio Email</span>
+                <span className="text-[11px] font-mono uppercase text-gray-500 block mb-0.5">{t('contact_studio_email')}</span>
                 <a href={`mailto:${emailAddr}`} className="font-mono text-white text-sm font-bold hover:text-accent-cyan transition-colors">
                   {emailAddr}
                 </a>
@@ -147,14 +147,14 @@ export default function ContactPage() {
 
           {/* Social Channels — Telegram & Instagram ONLY */}
           <div className="p-6 rounded-3xl bg-card-DEFAULT border border-card-border space-y-3">
-            <h4 className="font-display font-semibold text-white text-xs uppercase tracking-wider text-gray-400">Social Channels</h4>
+            <h4 className="font-display font-semibold text-white text-xs uppercase tracking-wider text-gray-400">{t('social_channels')}</h4>
             <div className="space-y-2.5 text-xs">
               
               {/* Telegram Lichka */}
               <a href={tgDirectUrl} target="_blank" rel="noreferrer" className="flex items-center justify-between p-3.5 rounded-2xl bg-black/40 border border-white/5 text-gray-200 hover:text-white hover:border-accent-blue/40 hover:bg-accent-blue/10 transition-all group">
                 <span className="flex items-center gap-2.5 font-semibold">
                   <TelegramIcon className="w-4 h-4 text-accent-blue group-hover:scale-110 transition-transform" />
-                  <span>Telegram Lichka</span>
+                  <span>{t('tg_direct')}</span>
                 </span>
                 <ArrowUpRight className="w-3.5 h-3.5 text-gray-400 group-hover:text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
               </a>
@@ -163,7 +163,7 @@ export default function ContactPage() {
               <a href={tgChannelUrl} target="_blank" rel="noreferrer" className="flex items-center justify-between p-3.5 rounded-2xl bg-black/40 border border-white/5 text-gray-200 hover:text-white hover:border-accent-cyan/40 hover:bg-accent-cyan/10 transition-all group">
                 <span className="flex items-center gap-2.5 font-semibold">
                   <TelegramIcon className="w-4 h-4 text-accent-cyan group-hover:scale-110 transition-transform" />
-                  <span>Telegram Kanal</span>
+                  <span>{t('tg_channel')}</span>
                 </span>
                 <ArrowUpRight className="w-3.5 h-3.5 text-gray-400 group-hover:text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
               </a>
@@ -184,8 +184,8 @@ export default function ContactPage() {
         <div className="lg:col-span-2 p-8 rounded-3xl bg-card-DEFAULT border border-card-border space-y-6">
           
           <div className="space-y-1">
-            <h3 className="font-display font-bold text-white text-lg">Send a Direct Message</h3>
-            <p className="text-gray-400 text-xs">Fill out the form below or schedule your message delivery.</p>
+            <h3 className="font-display font-bold text-white text-lg">{t('contact_send_msg')}</h3>
+            <p className="text-gray-400 text-xs">{t('contact_form_desc')}</p>
           </div>
 
           <form onSubmit={(e) => handleContactSubmit(e)} className="space-y-4">
@@ -231,7 +231,7 @@ export default function ContactPage() {
               <textarea
                 required
                 rows={4}
-                placeholder="Hi Otajon, I have a project inquiry regarding..."
+                placeholder={t('contact_msg_placeholder')}
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
                 className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-accent-purple resize-none"
@@ -246,7 +246,7 @@ export default function ContactPage() {
                 className="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-gradient-to-r from-accent-purple to-accent-blue text-white text-sm font-semibold shadow-lg shadow-accent-purple/20 flex items-center justify-center gap-2 hover:scale-105 active:scale-95 transition-all"
               >
                 <Send className="w-4 h-4" />
-                <span>{submitting ? 'Sending...' : t('contact_send_now')}</span>
+                <span>{submitting ? t('sending_text') : t('contact_send_now')}</span>
               </button>
 
               <button

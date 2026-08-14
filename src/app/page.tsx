@@ -110,28 +110,28 @@ export default function HomePage() {
   const processSteps = [
     {
       step: '01',
-      title: 'Discovery & Audit',
-      desc: 'We begin by learning your brand goals, target audience, and current design challenges through a deep-dive strategy call.',
+      title: t('step_01_title'),
+      desc: t('step_01_desc'),
     },
     {
       step: '02',
-      title: 'Concept & Planning',
-      desc: 'Creating a tailored creative blueprint with key visuals, moodboards, 3D wireframes, and high-converting asset roadmaps.',
+      title: t('step_02_title'),
+      desc: t('step_02_desc'),
     },
     {
       step: '03',
-      title: 'Production & Development',
-      desc: 'Executing photorealistic 3D rendering, dark luxury typography, motion graphic edits, and Figma UI design systems.',
+      title: t('step_03_title'),
+      desc: t('step_03_desc'),
     },
     {
       step: '04',
-      title: 'Launch & Delivery',
-      desc: 'Finalizing all high-resolution digital assets, master source files, and deploying your visual identity to market.',
+      title: t('step_04_title'),
+      desc: t('step_04_desc'),
     },
     {
       step: '05',
-      title: 'Growth & Support',
-      desc: 'Ongoing creative retainer support, campaign iterations, and analytics optimization for sustainable brand scaling.',
+      title: t('step_05_title'),
+      desc: t('step_05_desc'),
     },
   ];
 
@@ -149,12 +149,12 @@ export default function HomePage() {
           {/* Top Pill Badge */}
           <div className="inline-flex items-center gap-2 px-4 py-1.5 sm:py-2 rounded-full bg-white/[0.04] border border-accent-lime/30 text-accent-lime text-[11px] sm:text-xs font-mono tracking-wider uppercase backdrop-blur-md shadow-lg shadow-accent-lime/10">
             <Sparkles className="w-3.5 h-3.5 shrink-0 text-accent-lime" />
-            <span>Otajon Jahongirov • Studio & Creative Partner</span>
+            <span>{t('hero_pill_badge')}</span>
           </div>
 
           {/* Main Headline with Highlighted Lime Text */}
           <h1 className="hero-headline font-display font-extrabold text-white tracking-tight leading-[1.05]">
-            Smart Systems, <span className="text-accent-lime font-black">Collaborate Seamlessly</span>, Succeed Efficiently
+            {t('hero_headline_1')}<span className="text-accent-lime font-black">{t('hero_headline_highlight')}</span>{t('hero_headline_2')}
           </h1>
 
           {/* Subtitle */}
@@ -190,9 +190,9 @@ export default function HomePage() {
               <div className="w-8 h-8 rounded-lg bg-accent-lime/10 border border-accent-lime/20 flex items-center justify-center text-accent-lime">
                 <Eye className="w-4 h-4" />
               </div>
-              <h4 className="font-display font-bold text-white text-sm">A complete overview of our actions</h4>
+              <h4 className="font-display font-bold text-white text-sm">{t('dashboard_card1_title')}</h4>
               <p className="text-gray-400 text-xs leading-relaxed">
-                Clear tracking of brand identity systems, 3D renders, and campaign deliverables.
+                {t('dashboard_card1_desc')}
               </p>
             </div>
 
@@ -201,16 +201,16 @@ export default function HomePage() {
               <div className="w-8 h-8 rounded-lg bg-accent-lime/10 border border-accent-lime/20 flex items-center justify-center text-accent-lime">
                 <BarChart3 className="w-4 h-4" />
               </div>
-              <h4 className="font-display font-bold text-white text-sm">Complete statistics of your business</h4>
+              <h4 className="font-display font-bold text-white text-sm">{t('dashboard_card2_title')}</h4>
               <p className="text-gray-400 text-xs leading-relaxed">
-                Real-time audience engagement, likes, and asset downloads breakdown.
+                {t('dashboard_card2_desc')}
               </p>
             </div>
 
             {/* Mockup Card 3: Glowing Lime Sales Graph */}
             <div className="p-5 rounded-2xl bg-black/50 border border-white/[0.06] text-left space-y-3 relative overflow-hidden">
               <div className="flex items-center justify-between">
-                <span className="font-display font-bold text-white text-xs">Sales / Target</span>
+                <span className="font-display font-bold text-white text-xs">{t('dashboard_sales_label')}</span>
                 <span className="text-[10px] font-mono text-accent-lime font-bold bg-accent-lime/10 px-2 py-0.5 rounded-full border border-accent-lime/20">+94.8%</span>
               </div>
               <div className="text-2xl font-display font-black text-white">$142,850</div>
@@ -272,17 +272,17 @@ export default function HomePage() {
           {/* Left Text Column */}
           <div className="lg:col-span-6 space-y-6">
             <h2 className="font-display font-extrabold text-white text-2xl sm:text-4xl tracking-tight leading-tight">
-              Clarity and Control in Every Click — <span className="text-accent-lime">Streamline, Track, and Grow</span> with Ease
+              {t('clarity_title_1')}<span className="text-accent-lime">{t('clarity_title_highlight')}</span>{t('clarity_title_2')}
             </h2>
             <p className="text-gray-300 text-xs sm:text-sm leading-relaxed">
-              Simplify design workflows, gain instant visual insights, and accelerate growth with high-precision artwork tailored for modern studio standards.
+              {t('clarity_desc')}
             </p>
             <div>
               <Link
                 href="/request"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-accent-lime text-black font-bold text-xs shadow-lg shadow-accent-lime/20 hover:bg-accent-limeBright transition-all"
               >
-                <span>Take Control</span>
+                <span>{t('take_control_btn')}</span>
                 <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
@@ -293,7 +293,7 @@ export default function HomePage() {
             
             {/* Interactive Pill Tabs */}
             <div className="flex flex-wrap gap-2">
-              {['Product Strategy', 'Brand Identity', '3D Rendering', 'UI/UX Design', 'Motion Graphics'].map((tab, idx) => (
+              {[t('pill_product_strategy'), t('pill_brand_identity'), t('pill_3d_rendering'), t('pill_uiux_design'), t('pill_motion_graphics')].map((tab, idx) => (
                 <span
                   key={tab}
                   className={`px-3 py-1.5 rounded-full text-xs font-medium border transition-all ${
@@ -312,19 +312,19 @@ export default function HomePage() {
               <div className="space-y-1">
                 <div className="flex items-center gap-1.5 text-accent-lime text-xs font-bold">
                   <TrendingUp className="w-3.5 h-3.5" />
-                  <span>CONVERSION</span>
+                  <span>{t('conversion_label')}</span>
                 </div>
-                <div className="text-xl font-display font-bold text-white">98.4%</div>
-                <p className="text-[10px] text-gray-400">Turn audience into clients</p>
+                <div className="text-xl font-display font-bold text-white">{t('conversion_value')}</div>
+                <p className="text-[10px] text-gray-400">{t('conversion_desc')}</p>
               </div>
 
               <div className="space-y-1">
                 <div className="flex items-center gap-1.5 text-accent-cyan text-xs font-bold">
                   <BarChart3 className="w-3.5 h-3.5" />
-                  <span>ANALYTICS</span>
+                  <span>{t('analytics_label')}</span>
                 </div>
-                <div className="text-xl font-display font-bold text-white">Real-Time</div>
-                <p className="text-[10px] text-gray-400">Clear metrics, smart choices</p>
+                <div className="text-xl font-display font-bold text-white">{t('analytics_value')}</div>
+                <p className="text-[10px] text-gray-400">{t('analytics_desc')}</p>
               </div>
             </div>
           </div>
@@ -335,10 +335,10 @@ export default function HomePage() {
       <section className="max-w-7xl mx-auto px-4 sm:px-8 space-y-8">
         <div className="text-center space-y-2 max-w-xl mx-auto">
           <h2 className="font-display font-extrabold text-white text-2xl sm:text-4xl tracking-tight">
-            Your <span className="text-accent-lime">Business & Brand</span>, Backed by Intelligence
+            {t('bento_title_1')}<span className="text-accent-lime">{t('bento_title_highlight')}</span>{t('bento_title_2')}
           </h2>
           <p className="text-gray-400 text-xs sm:text-sm">
-            High-octane design systems built for long-term scalability and measurable results.
+            {t('bento_subtitle')}
           </p>
         </div>
 
@@ -348,10 +348,10 @@ export default function HomePage() {
           <div className="p-6 sm:p-8 rounded-3xl lime-card-active space-y-6 flex flex-col justify-between shadow-2xl transition-transform hover:scale-[1.02]">
             <div className="space-y-3">
               <h3 className="font-display font-extrabold text-black text-xl sm:text-2xl leading-tight">
-                Process Automation
+                {t('bento_automation_title')}
               </h3>
               <p className="text-black/80 text-xs leading-relaxed font-medium">
-                We automate routine creative workflows to improve accuracy, save time, and boost overall efficiency.
+                {t('bento_automation_desc')}
               </p>
             </div>
 
@@ -369,10 +369,10 @@ export default function HomePage() {
           <div className="p-6 sm:p-8 rounded-3xl bg-card-DEFAULT border border-white/10 space-y-6 flex flex-col justify-between shadow-xl hover:border-accent-lime/40 transition-all">
             <div className="space-y-3">
               <h3 className="font-display font-bold text-white text-xl sm:text-2xl leading-tight">
-                Performance Analytics
+                {t('bento_analytics_title')}
               </h3>
               <p className="text-gray-400 text-xs leading-relaxed">
-                Track creative asset views, engagement metrics, and conversion milestones with real-time accuracy.
+                {t('bento_analytics_desc')}
               </p>
             </div>
 
@@ -393,10 +393,10 @@ export default function HomePage() {
           <div className="p-6 sm:p-8 rounded-3xl bg-card-DEFAULT border border-white/10 space-y-6 flex flex-col justify-between shadow-xl hover:border-accent-lime/40 transition-all">
             <div className="space-y-3">
               <h3 className="font-display font-bold text-white text-xl sm:text-2xl leading-tight">
-                Business Strategy
+                {t('bento_strategy_title')}
               </h3>
               <p className="text-gray-400 text-xs leading-relaxed">
-                From brand positioning to long-term digital growth, we help build strategies that drive measurable results.
+                {t('bento_strategy_desc')}
               </p>
             </div>
 
@@ -414,9 +414,9 @@ export default function HomePage() {
       <section className="max-w-7xl mx-auto px-4 sm:px-8 space-y-10">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-white/10 pb-6">
           <div>
-            <span className="text-xs font-mono text-accent-lime uppercase tracking-widest font-bold">How It Works</span>
+            <span className="text-xs font-mono text-accent-lime uppercase tracking-widest font-bold">{t('process_label')}</span>
             <h2 className="font-display font-extrabold text-white text-2xl sm:text-4xl tracking-tight mt-1">
-              Begin <span className="text-accent-lime">Your Journey</span> with Us
+              {t('process_title_1')}<span className="text-accent-lime">{t('process_title_highlight')}</span>{t('process_title_2')}
             </h2>
           </div>
 
@@ -424,7 +424,7 @@ export default function HomePage() {
             href="/request"
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-accent-lime text-black font-bold text-xs shadow-lg shadow-accent-lime/20 hover:bg-accent-limeBright transition-all"
           >
-            <span>Take Control</span>
+            <span>{t('take_control_btn')}</span>
             <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
@@ -456,7 +456,7 @@ export default function HomePage() {
                   <button className={`p-2 rounded-full border text-xs font-semibold flex items-center gap-1 shrink-0 transition-all ${
                     isOpen ? 'bg-accent-lime text-black border-accent-lime' : 'bg-white/5 border-white/10 text-white'
                   }`}>
-                    <span>{isOpen ? 'Close' : 'Learn More'}</span>
+                    <span>{isOpen ? t('close_btn') : t('learn_more_btn')}</span>
                     <ArrowUpRight className="w-3.5 h-3.5" />
                   </button>
                 </div>
@@ -537,7 +537,7 @@ export default function HomePage() {
                     href={svc.buttonUrl || '/request'}
                     className="inline-flex items-center gap-2 text-xs font-semibold text-accent-lime hover:text-white transition-colors group-hover:translate-x-1 transition-transform"
                   >
-                    <span>{svc.buttonText || 'Request Service'}</span>
+                    <span>{svc.buttonText || t('request_service_fallback')}</span>
                     <ArrowRight className="w-3.5 h-3.5" />
                   </Link>
                 </div>
@@ -555,10 +555,10 @@ export default function HomePage() {
 
           <div className="space-y-3 max-w-xl mx-auto relative z-10">
             <h2 className="font-display font-extrabold text-white text-2xl sm:text-4xl tracking-tight">
-              Boost <span className="text-accent-lime">Your Business & Brand</span> Now
+              {t('cta_boost_title_1')}<span className="text-accent-lime">{t('cta_boost_highlight')}</span>{t('cta_boost_title_2')}
             </h2>
             <p className="text-gray-300 text-xs sm:text-sm leading-relaxed">
-              Upgrade your business workflow with deep creative insights, photorealistic 3D renders, and dark luxury branding.
+              {t('cta_boost_desc')}
             </p>
           </div>
 

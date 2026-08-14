@@ -159,7 +159,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
           </div>
 
           <span className="text-[10px] text-accent-lime uppercase font-semibold">
-            Case Study →
+            {t('case_study_link')}
           </span>
         </div>
       </div>
