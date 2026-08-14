@@ -258,7 +258,17 @@ export const translations = {
     watermark_notice: "PORTFOLIO PREVIEW — OTAJON JAHONGIROV",
     protection_toast: "Visual mualliflik huquqi himoyalangan (Otajon Jahongirov Studio)",
     cv_download: "CV faylini yuklash",
-    admin_access: "Admin paneli"
+    admin_access: "Admin paneli",
+    tg_contact_btn: "Telegram orqali bog'lanish",
+    tg_channel: "Telegram Kanal",
+    tg_direct: "Telegram Lichka",
+    about_role: "Kreativ Rahbar va Art Direktor",
+    about_bio: "3+ yildan ortiq vaqt davomida vizual brending, 3D CGI art, giperkar posterlar va zamonaviy raqamli studiya yechimlarini yaratish bilan shug'ullanaman. Editorial aniqlik, dark-luxury va kinematografik motion-grafika bo'yicha e'tirof etilganman.",
+    about_skills_title: "Asosiy mahorat va dasturlar",
+    about_exp_title: "Tajriba va Faoliyat",
+    contact_tg_title: "Telegram Orqali Murojaat",
+    contact_tg_desc: "Savollaringiz bo'lsa darhol yozing — 10 daqiqada javob beraman",
+    verified_studio: "Tasdiqlangan Kreativ Studio va Litsenziyalangan Assetlar"
   },
   ru: {
     // Nav
@@ -387,7 +397,17 @@ export const translations = {
     watermark_notice: "PORTFOLIO PREVIEW — OTAJON JAHONGIROV",
     protection_toast: "Визуальные права защищены (Otajon Jahongirov Studio)",
     cv_download: "Скачать резюме (CV)",
-    admin_access: "Панель администратора"
+    admin_access: "Панель администратора",
+    tg_contact_btn: "Связаться через Telegram",
+    tg_channel: "Канал Telegram",
+    tg_direct: "Личный Telegram",
+    about_role: "Креативный директор & Арт-директор",
+    about_bio: "Более 3+ лет студийной практики в создании визуальной айдентики, 3D CGI арта, постеров гиперкаров и цифровых продуктов. Признание за редакционную точность, тёмный люкс и кинематографичный моушн-дизайн.",
+    about_skills_title: "Ключевые навыки и ПО",
+    about_exp_title: "Опыт работы",
+    contact_tg_title: "Связаться в Telegram",
+    contact_tg_desc: "Есть вопросы? Пишите напрямую — отвечу в течение 10 минут",
+    verified_studio: "Верифицированная Креативная Студия & Лицензионные Ассеты"
   },
   en: {
     // Nav
@@ -516,6 +536,16 @@ export const translations = {
     watermark_notice: "PORTFOLIO PREVIEW — OTAJON JAHONGIROV",
     protection_toast: "Visual intellectual property protected (Otajon Jahongirov Studio)",
     cv_download: "Download Resume (CV)",
-    admin_access: "Admin Control Center"
+    admin_access: "Admin Control Center",
+    tg_contact_btn: "Contact via Telegram",
+    tg_channel: "Telegram Channel",
+    tg_direct: "Direct Telegram",
+    about_role: "Creative Lead & Art Director",
+    about_bio: "Over 3+ years of dedicated studio practice crafting visual identities, hypercar posters, photorealistic 3D artwork, and digital studio solutions. Recognized for editorial precision, dark luxury styling, and cinematic motion graphics.",
+    about_skills_title: "Core Capabilities & Software Mastery",
+    about_exp_title: "Professional Timeline",
+    contact_tg_title: "Contact via Telegram",
+    contact_tg_desc: "Have a project inquiry? Message directly — 10 min response time",
+    verified_studio: "Verified Creative Studio & Licensed Digital Assets"
   }
 };

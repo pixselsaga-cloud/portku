@@ -56,14 +56,14 @@ export const Footer = () => {
                 className="inline-flex items-center gap-2.5 px-6 py-3 rounded-2xl bg-gradient-to-r from-accent-blue via-accent-purple to-accent-cyan hover:opacity-95 text-white font-display font-bold text-xs shadow-xl shadow-accent-blue/30 transition-all hover:scale-105 active:scale-95 group"
               >
                 <MessageCircle className="w-4 h-4 fill-current text-white group-hover:scale-110 transition-transform" />
-                <span>Telegram orqali bog'lanish</span>
+                <span>{t('tg_contact_btn')}</span>
                 <ArrowUpRight className="w-3.5 h-3.5 opacity-70 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
               </a>
             </div>
 
             <div className="flex items-center gap-2 text-xs text-accent-emerald bg-accent-emerald/10 border border-accent-emerald/20 px-3.5 py-1.5 rounded-full w-fit">
               <ShieldCheck className="w-4 h-4" />
-              <span>Verified Creative Studio & Digital Asset Licensing</span>
+              <span>{t('verified_studio')}</span>
             </div>
           </div>
 
@@ -125,7 +125,7 @@ export const Footer = () => {
               >
                 <div className="flex items-center gap-2.5">
                   <Send className="w-4 h-4 text-accent-blue group-hover:scale-110 transition-transform" />
-                  <span className="font-semibold">Telegram Lichka</span>
+                  <span className="font-semibold">{t('tg_direct')}</span>
                 </div>
                 <ArrowUpRight className="w-3.5 h-3.5 text-gray-400 group-hover:text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
               </a>
@@ -139,7 +139,7 @@ export const Footer = () => {
               >
                 <div className="flex items-center gap-2.5">
                   <Send className="w-4 h-4 text-accent-cyan group-hover:scale-110 transition-transform" />
-                  <span className="font-semibold">Telegram Kanal</span>
+                  <span className="font-semibold">{t('tg_channel')}</span>
                 </div>
                 <ArrowUpRight className="w-3.5 h-3.5 text-gray-400 group-hover:text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
               </a>

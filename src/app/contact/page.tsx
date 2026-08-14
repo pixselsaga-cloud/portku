@@ -97,9 +97,9 @@ export default function ContactPage() {
               <MessageCircle className="w-6 h-6 fill-current" />
             </div>
             <div>
-              <h3 className="font-display font-bold text-white text-base">Telegram Orqali Murojaat</h3>
+              <h3 className="font-display font-bold text-white text-base">{t('contact_tg_title')}</h3>
               <p className="text-gray-400 text-xs mt-1 leading-relaxed">
-                Loyiha muhokamasi va tezkor konsultatsiya uchun bevosita muloqot.
+                {t('contact_tg_desc')}
               </p>
             </div>
             <a
@@ -109,7 +109,7 @@ export default function ContactPage() {
               className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-accent-blue via-accent-purple to-accent-cyan text-white text-xs font-bold flex items-center justify-center gap-2 shadow-lg shadow-accent-blue/30 hover:scale-[1.02] active:scale-95 transition-all group"
             >
               <TelegramIcon className="w-4 h-4 group-hover:scale-110 transition-transform" />
-              <span>Telegram Orqali Bog'lanish</span>
+              <span>{t('tg_contact_btn')}</span>
             </a>
           </div>
 

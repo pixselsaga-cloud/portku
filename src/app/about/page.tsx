@@ -37,7 +37,7 @@ export default function AboutPage() {
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
           <div className="absolute bottom-6 left-6 right-6">
-            <span className="text-xs font-mono text-accent-purple uppercase tracking-wider font-bold">Creative Lead</span>
+            <span className="text-xs font-mono text-accent-purple uppercase tracking-wider font-bold">{t('about_role')}</span>
             <h2 className="font-display font-bold text-white text-2xl">Otajon Jahongirov</h2>
             <p className="text-gray-400 text-xs mt-0.5">Tashkent, Uzbekistan • Global Remote</p>
           </div>
@@ -55,7 +55,7 @@ export default function AboutPage() {
           </div>
 
           <p className="text-gray-300 text-sm sm:text-base leading-relaxed">
-            Over 3+ years of dedicated studio practice crafting visual identities, hypercar posters, photorealistic 3D artwork, and digital studio solutions. Recognized for editorial precision, dark luxury styling, and cinematic motion graphics.
+            {t('about_bio')}
           </p>
 
           {/* Download CV CTA */}
@@ -76,7 +76,7 @@ export default function AboutPage() {
       <div className="space-y-6">
         <h2 className="font-display font-bold text-white text-xl flex items-center gap-2">
           <Sparkles className="w-5 h-5 text-accent-purple" />
-          <span>Core Capabilities & Software Mastery</span>
+          <span>{t('about_skills_title')}</span>
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -98,7 +98,7 @@ export default function AboutPage() {
       <div className="space-y-6">
         <h2 className="font-display font-bold text-white text-xl flex items-center gap-2">
           <Briefcase className="w-5 h-5 text-accent-blue" />
-          <span>Career Milestone Timeline</span>
+          <span>{t('about_exp_title')}</span>
         </h2>
 
         <div className="space-y-4">
