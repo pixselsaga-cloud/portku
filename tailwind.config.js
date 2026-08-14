@@ -9,12 +9,12 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        background: "#070a07",
+        background: "#08090C",
         foreground: "#f3f4f6",
         card: {
-          DEFAULT: "rgba(13, 18, 13, 0.75)",
-          border: "rgba(255, 255, 255, 0.08)",
-          hover: "rgba(20, 28, 20, 0.85)",
+          DEFAULT: "rgba(18, 20, 29, 0.65)",
+          border: "rgba(255, 255, 255, 0.07)",
+          hover: "rgba(24, 27, 39, 0.85)",
         },
         accent: {
           lime: "#a3e635",
@@ -25,12 +25,17 @@ module.exports = {
           blue: "#3b82f6",
           gold: "#f59e0b",
           rose: "#f43f5e",
-          cyan: "#06b6d4"
-        }
+          cyan: "#06b6d4",
+        },
       },
       fontFamily: {
         sans: ["Inter", "system-ui", "-apple-system", "sans-serif"],
-        display: ["Space Grotesk", "Outfit", "system-ui", "sans-serif"],
+        display: ["Space Grotesk", "Syne", "Outfit", "system-ui", "sans-serif"],
+      },
+      boxShadow: {
+        'neon-lime': '0 0 25px rgba(163, 230, 53, 0.25)',
+        'neon-lime-lg': '0 0 40px rgba(163, 230, 53, 0.35)',
+        'glass': '0 8px 32px 0 rgba(0, 0, 0, 0.37)',
       },
       animation: {
         'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
@@ -45,8 +50,8 @@ module.exports = {
         glow: {
           '0%': { opacity: '0.4', filter: 'blur(20px)' },
           '100%': { opacity: '0.8', filter: 'blur(30px)' },
-        }
-      }
+        },
+      },
     },
   },
   plugins: [],

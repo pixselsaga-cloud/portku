@@ -4,12 +4,13 @@ import { LanguageProvider } from '@/context/LanguageContext';
 import { ToastProvider } from '@/context/ToastContext';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
+import { GlowCursor } from '@/components/GlowCursor';
 
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
   maximumScale: 5,
-  themeColor: '#08080a',
+  themeColor: '#08090C',
 };
 
 export const metadata: Metadata = {
@@ -28,17 +29,21 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en" className="dark scroll-smooth">
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700;900&display=swap" rel="stylesheet" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700;800&family=Syne:wght@600;700;800&display=swap"
+          rel="stylesheet"
+        />
         <link rel="stylesheet" href="/styles.css" />
       </head>
-      <body className="bg-background text-foreground font-sans antialiased selection:bg-accent-purple selection:text-white min-h-screen flex flex-col overflow-x-hidden">
+      <body className="bg-background text-foreground font-sans antialiased selection:bg-accent-lime selection:text-black min-h-screen flex flex-col overflow-x-hidden ambient-mesh">
         <LanguageProvider>
           <ToastProvider>
+            <GlowCursor />
             <Navbar />
             <main className="flex-grow pt-20 sm:pt-24">{children}</main>
             <Footer />

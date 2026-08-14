@@ -178,12 +178,12 @@ export default function DesignRequestPage() {
       </div>
 
       {/* Mode Switcher Tabs */}
-      <div className="flex items-center justify-center p-1.5 rounded-2xl bg-card-DEFAULT border border-card-border w-fit mx-auto">
+      <div className="flex items-center justify-center p-1.5 rounded-full bg-card-DEFAULT border border-white/10 w-fit mx-auto">
         <button
           onClick={() => setActiveTab('form')}
-          className={`px-6 py-2.5 rounded-xl text-xs font-semibold transition-all ${
+          className={`px-6 py-2.5 rounded-full text-xs font-bold transition-all ${
             activeTab === 'form'
-              ? 'bg-gradient-to-r from-accent-purple to-accent-blue text-white shadow-lg'
+              ? 'bg-accent-lime text-black shadow-lg shadow-accent-lime/20'
               : 'text-gray-400 hover:text-white'
           }`}
         >
@@ -192,24 +192,24 @@ export default function DesignRequestPage() {
 
         <button
           onClick={() => setActiveTab('ai')}
-          className={`flex items-center gap-2 px-6 py-2.5 rounded-xl text-xs font-semibold transition-all ${
+          className={`flex items-center gap-2 px-6 py-2.5 rounded-full text-xs font-bold transition-all ${
             activeTab === 'ai'
-              ? 'bg-gradient-to-r from-accent-purple to-accent-blue text-white shadow-lg'
+              ? 'bg-accent-lime text-black shadow-lg shadow-accent-lime/20'
               : 'text-gray-400 hover:text-white'
           }`}
         >
-          <Bot className="w-4 h-4 text-accent-cyan" />
+          <Bot className="w-4 h-4" />
           <span>{t('request_tab_ai')}</span>
         </button>
       </div>
 
       {/* 1. STANDARD QUESTIONNAIRE FORM */}
       {activeTab === 'form' ? (
-        <form onSubmit={handleFormSubmit} className="p-8 rounded-3xl bg-card-DEFAULT border border-card-border space-y-6">
+        <form onSubmit={handleFormSubmit} className="p-6 sm:p-8 rounded-3xl bg-card-DEFAULT border border-white/10 space-y-6 shadow-2xl">
           
           {/* Services Selection Grid */}
           <div className="space-y-3">
-            <label className="block text-xs font-mono uppercase tracking-wider text-gray-300">
+            <label className="block text-xs font-mono uppercase tracking-wider text-accent-lime font-bold">
               {t('request_services_needed')}
             </label>
             <div className="flex flex-wrap gap-2">
@@ -222,7 +222,7 @@ export default function DesignRequestPage() {
                     onClick={() => toggleService(srv)}
                     className={`px-4 py-2 rounded-xl text-xs font-medium border transition-all ${
                       isSelected
-                        ? 'bg-accent-purple text-white border-accent-purple shadow-lg shadow-accent-purple/20'
+                        ? 'bg-accent-lime text-black border-accent-lime font-bold shadow-lg shadow-accent-lime/20'
                         : 'bg-black/40 border-white/10 text-gray-400 hover:text-white hover:border-white/20'
                     }`}
                   >
@@ -243,7 +243,7 @@ export default function DesignRequestPage() {
                 placeholder="Sarah Jenkins"
                 value={clientName}
                 onChange={(e) => setClientName(e.target.value)}
-                className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-accent-purple"
+                className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-accent-lime"
               />
             </div>
 
@@ -255,7 +255,7 @@ export default function DesignRequestPage() {
                 placeholder="sarah@brand.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-accent-purple"
+                className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-accent-lime"
               />
             </div>
 
@@ -266,7 +266,7 @@ export default function DesignRequestPage() {
                 placeholder="+998 90 123 45 67"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
-                className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-accent-purple"
+                className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-accent-lime"
               />
             </div>
           </div>
@@ -280,7 +280,7 @@ export default function DesignRequestPage() {
               placeholder="Describe your brand goals, vision, and deliverables..."
               value={projectDetails}
               onChange={(e) => setProjectDetails(e.target.value)}
-              className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-accent-purple resize-none"
+              className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-accent-lime resize-none"
             />
           </div>
 
@@ -293,7 +293,7 @@ export default function DesignRequestPage() {
                 placeholder="e.g. 3 Weeks"
                 value={deadline}
                 onChange={(e) => setDeadline(e.target.value)}
-                className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-accent-purple"
+                className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-accent-lime"
               />
             </div>
 
@@ -304,7 +304,7 @@ export default function DesignRequestPage() {
                 placeholder="e.g. $2,500 - $5,000"
                 value={budget}
                 onChange={(e) => setBudget(e.target.value)}
-                className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-accent-purple"
+                className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-accent-lime"
               />
             </div>
           </div>
@@ -312,7 +312,7 @@ export default function DesignRequestPage() {
           {/* File Attachment Uploader (JPG, PNG, PDF, ZIP, RAR, AI, PSD, etc.) */}
           <div className="space-y-2 pt-2 border-t border-white/[0.08]">
             <label className="block text-xs font-medium text-gray-300 flex items-center gap-1.5">
-              <Paperclip className="w-3.5 h-3.5 text-accent-purple" />
+              <Paperclip className="w-3.5 h-3.5 text-accent-lime" />
               <span>Reference File / Brand Attachments (JPG, PNG, PDF, ZIP, RAR, PSD, AI, FIG)</span>
             </label>
             
@@ -328,9 +328,9 @@ export default function DesignRequestPage() {
               />
               <label
                 htmlFor="requestAttachmentInput"
-                className="px-4 py-2.5 rounded-xl bg-black/40 border border-white/10 hover:border-accent-purple text-xs text-gray-300 hover:text-white cursor-pointer flex items-center gap-2 transition-all"
+                className="px-4 py-2.5 rounded-xl bg-black/40 border border-white/10 hover:border-accent-lime text-xs text-gray-300 hover:text-white cursor-pointer flex items-center gap-2 transition-all"
               >
-                <Upload className="w-4 h-4 text-accent-purple" />
+                <Upload className="w-4 h-4 text-accent-lime" />
                 <span>{attachedFile ? attachedFile.name : 'Fayl biriktirish (Attach File)'}</span>
               </label>
 
@@ -338,7 +338,7 @@ export default function DesignRequestPage() {
                 <span className="text-xs font-mono text-accent-cyan animate-pulse">Uploading file...</span>
               )}
               {attachmentUrl && (
-                <span className="text-xs font-mono text-accent-emerald flex items-center gap-1">
+                <span className="text-xs font-mono text-accent-lime flex items-center gap-1">
                   <CheckCircle2 className="w-3.5 h-3.5" /> Attached
                 </span>
               )}
@@ -349,9 +349,9 @@ export default function DesignRequestPage() {
           <button
             type="submit"
             disabled={submitting || uploadingAttachment}
-            className="w-full py-4 rounded-2xl bg-gradient-to-r from-accent-purple via-accent-blue to-accent-cyan text-white text-sm font-bold shadow-xl shadow-accent-purple/20 flex items-center justify-center gap-2 hover:scale-[1.01] active:scale-95 transition-all"
+            className="w-full py-3.5 rounded-full bg-accent-lime text-black text-xs sm:text-sm font-bold shadow-xl shadow-accent-lime/25 flex items-center justify-center gap-2 hover:bg-accent-limeBright hover:scale-[1.01] active:scale-95 transition-all"
           >
-            <Sparkles className="w-4 h-4" />
+            <Sparkles className="w-4 h-4 stroke-[2.5]" />
             <span>{submitting ? 'Submitting...' : t('request_submit')}</span>
           </button>
         </form>

@@ -110,22 +110,22 @@ export default function ClientProjectPage() {
     <div className="max-w-4xl mx-auto px-4 sm:px-8 py-8 space-y-10">
       
       {/* Header */}
-      <div className="p-8 rounded-3xl bg-card-DEFAULT border border-card-border space-y-6">
+      <div className="p-6 sm:p-8 rounded-3xl bg-card-DEFAULT border border-white/10 space-y-6 shadow-2xl">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <span className="text-xs font-mono uppercase text-accent-purple font-bold">
+            <span className="text-xs font-mono uppercase text-accent-lime font-bold">
               Private Project Room
             </span>
             <h1 className="font-display font-bold text-white text-2xl tracking-tight">
               {project.title}
             </h1>
             <p className="text-xs text-gray-400 mt-0.5">
-              Client: <span className="text-white font-medium">{project.clientName}</span> ({project.clientEmail})
+              Client: <span className="text-white font-medium">{project.clientName}</span> {project.clientEmail && `(${project.clientEmail})`}
             </p>
           </div>
 
-          <div className="px-3.5 py-1.5 rounded-full bg-white/[0.05] border border-white/[0.1] text-xs font-mono text-gray-300 w-fit">
-            CODE: <span className="text-white font-bold">{project.accessCode}</span>
+          <div className="px-4 py-2 rounded-full bg-white/[0.05] border border-accent-lime/30 text-xs font-mono text-gray-300 w-fit">
+            CODE: <span className="text-accent-lime font-bold tracking-wider">{project.accessCode}</span>
           </div>
         </div>
 
@@ -141,18 +141,18 @@ export default function ClientProjectPage() {
               return (
                 <div
                   key={st}
-                  className={`p-3 rounded-xl border text-center transition-all ${
+                  className={`p-3.5 rounded-2xl border text-center transition-all ${
                     isCurrent
-                      ? 'bg-accent-purple/20 border-accent-purple text-white shadow-lg'
+                      ? 'bg-accent-lime text-black border-accent-lime font-bold shadow-lg shadow-accent-lime/25'
                       : isPast
-                      ? 'bg-accent-emerald/10 border-accent-emerald/30 text-accent-emerald'
+                      ? 'bg-accent-lime/10 border-accent-lime/30 text-accent-lime font-semibold'
                       : 'bg-black/30 border-white/10 text-gray-500'
                   }`}
                 >
-                  <div className="text-[10px] font-mono uppercase tracking-wider font-bold mb-1">
+                  <div className={`text-[10px] font-mono uppercase tracking-wider font-bold mb-1 ${isCurrent ? 'text-black/80' : ''}`}>
                     Step 0{i + 1}
                   </div>
-                  <div className="text-xs font-semibold uppercase">
+                  <div className="text-xs uppercase">
                     {t(`client_status_${st}` as any) || st}
                   </div>
                 </div>
@@ -163,9 +163,9 @@ export default function ClientProjectPage() {
       </div>
 
       {/* Deliverable Files Section */}
-      <div className="p-8 rounded-3xl bg-card-DEFAULT border border-card-border space-y-4">
+      <div className="p-6 sm:p-8 rounded-3xl bg-card-DEFAULT border border-white/10 space-y-4 shadow-2xl">
         <h3 className="font-display font-bold text-white text-lg flex items-center gap-2">
-          <FileCheck className="w-5 h-5 text-accent-purple" />
+          <FileCheck className="w-5 h-5 text-accent-lime" />
           <span>{t('client_deliverables')}</span>
         </h3>
 
@@ -173,7 +173,7 @@ export default function ClientProjectPage() {
           {deliverables.map((item: any, idx: number) => (
             <div
               key={idx}
-              className="flex items-center justify-between p-4 rounded-xl bg-black/40 border border-white/5"
+              className="flex items-center justify-between p-4 rounded-2xl bg-black/40 border border-white/5 hover:border-accent-lime/30 transition-all"
             >
               <div>
                 <div className="font-semibold text-white text-sm">{item.name}</div>
@@ -183,9 +183,9 @@ export default function ClientProjectPage() {
               <a
                 href={item.url || '#'}
                 download
-                className="px-4 py-2 rounded-xl bg-accent-purple text-white text-xs font-semibold flex items-center gap-2 hover:bg-accent-purple/90 transition-all shadow-lg shadow-accent-purple/20"
+                className="px-4 py-2 rounded-full bg-accent-lime text-black text-xs font-bold flex items-center gap-2 hover:bg-accent-limeBright transition-all shadow-lg shadow-accent-lime/20"
               >
-                <Download className="w-3.5 h-3.5" />
+                <Download className="w-3.5 h-3.5 stroke-[2.5]" />
                 <span>Download File</span>
               </a>
             </div>
@@ -194,7 +194,7 @@ export default function ClientProjectPage() {
       </div>
 
       {/* Feedback & Notes Section */}
-      <div className="p-8 rounded-3xl bg-card-DEFAULT border border-card-border space-y-6">
+      <div className="p-6 sm:p-8 rounded-3xl bg-card-DEFAULT border border-white/10 space-y-6 shadow-2xl">
         <h3 className="font-display font-bold text-white text-lg flex items-center gap-2">
           <MessageSquare className="w-5 h-5 text-accent-cyan" />
           <span>{t('client_feedback_title')}</span>
@@ -208,7 +208,7 @@ export default function ClientProjectPage() {
                 key={fb.id}
                 className={`p-4 rounded-2xl text-xs space-y-1 ${
                   fb.sender === 'client'
-                    ? 'bg-accent-purple/10 border border-accent-purple/30 text-white ml-6'
+                    ? 'bg-accent-lime/10 border border-accent-lime/30 text-white ml-6'
                     : 'bg-black/50 border border-white/10 text-gray-300 mr-6'
                 }`}
               >
@@ -231,14 +231,14 @@ export default function ClientProjectPage() {
             placeholder="Type feedback or revision note..."
             value={feedback}
             onChange={(e) => setFeedback(e.target.value)}
-            className="flex-grow bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-accent-purple"
+            className="flex-grow bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-accent-lime"
           />
           <button
             type="submit"
             disabled={submittingFeedback}
-            className="px-5 py-2.5 rounded-xl bg-accent-purple text-white text-xs font-semibold flex items-center gap-2"
+            className="px-5 py-2.5 rounded-xl bg-accent-lime text-black font-bold text-xs flex items-center gap-2 hover:bg-accent-limeBright transition-all"
           >
-            <Send className="w-3.5 h-3.5" />
+            <Send className="w-3.5 h-3.5 stroke-[2.5]" />
             <span>Send</span>
           </button>
         </form>
@@ -248,9 +248,9 @@ export default function ClientProjectPage() {
           <div className="pt-4 border-t border-white/[0.08]">
             <button
               onClick={handleApproveProject}
-              className="w-full py-4 rounded-2xl bg-gradient-to-r from-accent-emerald to-accent-cyan text-white text-sm font-bold shadow-xl shadow-accent-emerald/20 flex items-center justify-center gap-2 hover:scale-[1.01] active:scale-95 transition-all"
+              className="w-full py-4 rounded-2xl bg-accent-lime hover:bg-accent-limeBright text-black text-sm font-bold shadow-xl shadow-accent-lime/25 flex items-center justify-center gap-2 hover:scale-[1.01] active:scale-95 transition-all"
             >
-              <CheckCircle2 className="w-5 h-5" />
+              <CheckCircle2 className="w-5 h-5 stroke-[2.5]" />
               <span>{t('client_approve_project')}</span>
             </button>
           </div>

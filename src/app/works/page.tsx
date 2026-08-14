@@ -134,7 +134,7 @@ export default function WorksPage() {
                 onClick={() => setActiveCategory(cat)}
                 className={`px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs font-medium whitespace-nowrap transition-all shrink-0 ${
                   activeCategory === cat
-                    ? 'bg-white text-black shadow-lg font-semibold'
+                    ? 'bg-accent-lime text-black shadow-lg shadow-accent-lime/25 font-bold'
                     : 'bg-white/[0.04] border border-white/[0.08] text-gray-400 hover:text-white hover:bg-white/[0.08]'
                 }`}
               >
