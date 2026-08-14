@@ -60,10 +60,10 @@ export default function ServicesPage() {
           {t('nav_services')}
         </span>
         <h1 className="section-headline font-display font-bold text-white tracking-tight">
-          Creative Design Disciplines & Studio Offerings
+          {t('services_title_full')}
         </h1>
         <p className="text-gray-400 text-xs sm:text-sm">
-          Tailored visual solutions ranging from high-impact brand identities to photorealistic 3D CGI rendering.
+          {t('services_subtitle')}
         </p>
       </div>
 

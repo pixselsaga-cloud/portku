@@ -197,7 +197,7 @@ export default function HomePage() {
         <div className="text-center space-y-2 max-w-xl mx-auto">
           <span className="text-xs font-mono text-accent-purple uppercase tracking-widest font-bold">{t('nav_services')}</span>
           <h2 className="font-display font-bold text-white text-xl sm:text-3xl tracking-tight">
-            Creative Services & Disciplines
+            {t('services_title_full')}
           </h2>
         </div>
 
@@ -247,10 +247,10 @@ export default function HomePage() {
           
           <div className="space-y-2 sm:space-y-3 max-w-xl mx-auto relative z-10">
             <h2 className="font-display font-extrabold text-white text-xl sm:text-4xl tracking-tight">
-              Ready to Launch Your Visual Identity?
+              {t('cta_title')}
             </h2>
             <p className="text-gray-300 text-xs sm:text-sm">
-              Direct consultation, hyper-realistic 3D rendering, and brutalist poster design.
+              {t('cta_subtitle')}
             </p>
           </div>
 
@@ -259,7 +259,7 @@ export default function HomePage() {
               href="/request"
               className="w-full sm:w-auto px-8 py-3.5 rounded-2xl bg-gradient-to-r from-accent-purple to-accent-blue text-white text-xs sm:text-sm font-bold shadow-xl shadow-accent-purple/30 hover:scale-105 transition-all text-center"
             >
-              Start Project Inquiry
+              {t('cta_btn')}
             </Link>
           </div>
         </div>

@@ -268,7 +268,14 @@ export const translations = {
     about_exp_title: "Tajriba va Faoliyat",
     contact_tg_title: "Telegram Orqali Murojaat",
     contact_tg_desc: "Savollaringiz bo'lsa darhol yozing — 10 daqiqada javob beraman",
-    verified_studio: "Tasdiqlangan Kreativ Studio va Litsenziyalangan Assetlar"
+    verified_studio: "Tasdiqlangan Kreativ Studio va Litsenziyalangan Assetlar",
+    services_title_full: "Kreativ Dizayn Yo'nalishlari va Studio Xizmatlari",
+    cta_title: "Vizual Identikangizni Yo'lga Qo'yishga Tayyormisiz?",
+    cta_subtitle: "Bevosita konsultatsiya, fotorealistik 3D rendering va brutalist poster dizayni.",
+    cta_btn: "Loyiha So'rovini Boshlash",
+    contact_direct_phone: "Telefon raqami",
+    contact_studio_email: "Studiya Emaili",
+    social_channels: "Ijtimoiy Tarmoqlar"
   },
   ru: {
     // Nav
@@ -407,7 +414,14 @@ export const translations = {
     about_exp_title: "Опыт работы",
     contact_tg_title: "Связаться в Telegram",
     contact_tg_desc: "Есть вопросы? Пишите напрямую — отвечу в течение 10 минут",
-    verified_studio: "Верифицированная Креативная Студия & Лицензионные Ассеты"
+    verified_studio: "Верифицированная Креативная Студия & Лицензионные Ассеты",
+    services_title_full: "Направления Креативного Дизайна и Услуги Студии",
+    cta_title: "Готовы Создать Свою Визуальную Айдентику?",
+    cta_subtitle: "Прямая консультация, фотореалистичный 3D-рендеринг и брутальный постер-дизайн.",
+    cta_btn: "Начать Запрос Проекта",
+    contact_direct_phone: "Прямой телефон",
+    contact_studio_email: "Email студии",
+    social_channels: "Социальные Сети"
   },
   en: {
     // Nav
@@ -546,6 +560,13 @@ export const translations = {
     about_exp_title: "Professional Timeline",
     contact_tg_title: "Contact via Telegram",
     contact_tg_desc: "Have a project inquiry? Message directly — 10 min response time",
-    verified_studio: "Verified Creative Studio & Licensed Digital Assets"
+    verified_studio: "Verified Creative Studio & Licensed Digital Assets",
+    services_title_full: "Creative Design Disciplines & Studio Offerings",
+    cta_title: "Ready to Launch Your Visual Identity?",
+    cta_subtitle: "Direct consultation, hyper-realistic 3D rendering, and brutalist poster design.",
+    cta_btn: "Start Project Inquiry",
+    contact_direct_phone: "Direct Phone",
+    contact_studio_email: "Studio Email",
+    social_channels: "Social Channels"
   }
 };
