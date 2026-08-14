@@ -75,7 +75,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
   return (
     <Link
       href={`/works/${slug}`}
-      className="group relative block rounded-2xl overflow-hidden bg-card-DEFAULT border border-card-border hover:border-accent-purple/40 transition-all duration-500 hover:shadow-2xl hover:shadow-accent-purple/10 flex flex-col h-full select-none"
+      className="group relative block rounded-2xl overflow-hidden bg-card-DEFAULT border border-white/10 hover:border-accent-lime/60 transition-all duration-500 hover:shadow-2xl hover:shadow-accent-lime/10 flex flex-col h-full select-none"
     >
       {/* Cover Image Container with Watermark */}
       <div className="relative aspect-[16/10] w-full overflow-hidden bg-black/40">
@@ -97,7 +97,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
             {displayCategory}
           </span>
           {featured && (
-            <span className="px-2.5 py-0.5 rounded-full bg-accent-purple/80 backdrop-blur-md text-[10px] font-bold text-white uppercase tracking-wider shadow-lg shadow-accent-purple/30">
+            <span className="px-2.5 py-0.5 rounded-full bg-accent-lime text-black backdrop-blur-md text-[10px] font-bold uppercase tracking-wider shadow-lg shadow-accent-lime/30">
               {t('featured_case_badge')}
             </span>
           )}
@@ -121,8 +121,8 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
               onClick={handleSave}
               className={`p-2 rounded-xl backdrop-blur-md border transition-all ${
                 isSaved
-                  ? 'bg-accent-gold text-black border-accent-gold'
-                  : 'bg-black/60 border-white/20 text-white hover:bg-accent-gold hover:text-black hover:border-accent-gold'
+                  ? 'bg-accent-lime text-black border-accent-lime'
+                  : 'bg-black/60 border-white/20 text-white hover:bg-accent-lime hover:text-black hover:border-accent-lime'
               }`}
             >
               <Bookmark className={`w-4 h-4 ${isSaved ? 'fill-current' : ''}`} />
@@ -135,10 +135,10 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
       <div className="p-5 flex flex-col flex-grow justify-between gap-3">
         <div>
           <div className="flex items-start justify-between gap-2 mb-1">
-            <h3 className="font-display font-bold text-white text-base group-hover:text-accent-purple transition-colors leading-tight line-clamp-1">
+            <h3 className="font-display font-bold text-white text-base group-hover:text-accent-lime transition-colors leading-tight line-clamp-1">
               {displayTitle}
             </h3>
-            <ArrowUpRight className="w-4 h-4 text-gray-500 group-hover:text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all shrink-0 mt-0.5" />
+            <ArrowUpRight className="w-4 h-4 text-gray-500 group-hover:text-accent-lime group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all shrink-0 mt-0.5 stroke-[2.5]" />
           </div>
           <p className="text-gray-400 text-xs line-clamp-2 leading-relaxed">
             {displayDesc}
@@ -158,7 +158,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
             </span>
           </div>
 
-          <span className="text-[10px] text-gray-400 uppercase">
+          <span className="text-[10px] text-accent-lime uppercase font-semibold">
             Case Study →
           </span>
         </div>

@@ -4,25 +4,31 @@
 
 @layer base {
   body {
-    background-color: #08080a;
+    background-color: #070a07;
     color: #f3f4f6;
     overflow-x: hidden;
   }
 }
 
-/* Custom Scrollbar */
+/* Custom Electric Lime Scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #08080a;
+  background: #070a07;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(163, 230, 53, 0.25);
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(139, 92, 246, 0.5);
+  background: rgba(163, 230, 53, 0.7);
+}
+
+/* Selection Color */
+::selection {
+  background-color: #a3e635;
+  color: #000000;
 }
 
 /* Fluid Typography Clamps */
@@ -34,6 +40,27 @@
 .section-headline {
   font-size: clamp(1.75rem, 3vw + 0.5rem, 3rem);
   line-height: 1.15;
+}
+
+/* Glowing Radial Halo background matching reference image */
+.lime-glow-halo {
+  background: radial-gradient(circle at center, rgba(163, 230, 53, 0.18) 0%, rgba(163, 230, 53, 0.03) 55%, transparent 75%);
+  filter: blur(60px);
+}
+
+/* Electric Lime Card Highlight */
+.lime-card-active {
+  background: #a3e635;
+  color: #000000;
+}
+
+/* Hide scrollbar for clean horizontal tabs */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 /* Right-click & Selection protection utilities */

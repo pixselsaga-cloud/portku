@@ -9,18 +9,21 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        background: "#08080a",
+        background: "#070a07",
         foreground: "#f3f4f6",
         card: {
-          DEFAULT: "rgba(18, 18, 24, 0.75)",
+          DEFAULT: "rgba(13, 18, 13, 0.75)",
           border: "rgba(255, 255, 255, 0.08)",
-          hover: "rgba(28, 28, 38, 0.85)",
+          hover: "rgba(20, 28, 20, 0.85)",
         },
         accent: {
+          lime: "#a3e635",
+          limeBright: "#bef264",
+          limeDark: "#65a30d",
+          emerald: "#10b981",
           purple: "#8b5cf6",
           blue: "#3b82f6",
           gold: "#f59e0b",
-          emerald: "#10b981",
           rose: "#f43f5e",
           cyan: "#06b6d4"
         }

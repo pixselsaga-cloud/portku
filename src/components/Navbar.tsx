@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useLanguage } from '@/context/LanguageContext';
 import { Language } from '@/lib/i18n';
-import { Sparkles, Globe, Menu, X } from 'lucide-react';
+import { Sparkles, Globe, Menu, X, ArrowUpRight } from 'lucide-react';
 
 export const Navbar = () => {
   const { lang, setLang, t } = useLanguage();
@@ -41,12 +41,12 @@ export const Navbar = () => {
   ];
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 px-4 sm:px-8 py-4 backdrop-blur-xl bg-background/60 border-b border-card-border transition-all duration-300">
+    <header className="fixed top-0 left-0 right-0 z-50 px-4 sm:px-8 py-4 backdrop-blur-xl bg-background/70 border-b border-white/[0.08] transition-all duration-300">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         
         {/* Brand Logo with Custom Vector Avatar */}
         <Link href="/" className="flex items-center gap-3 group">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-accent-purple via-accent-blue to-accent-cyan p-[1px] transition-transform duration-300 group-hover:scale-105 overflow-hidden shadow-lg shadow-accent-purple/20">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-accent-lime via-accent-emerald to-accent-cyan p-[1px] transition-transform duration-300 group-hover:scale-105 overflow-hidden shadow-lg shadow-accent-lime/20">
             <img
               src="/assets/user_avatar.jpg"
               alt="Otajon Jahongirov Avatar"
@@ -54,17 +54,17 @@ export const Navbar = () => {
             />
           </div>
           <div>
-            <span className="font-display font-bold tracking-tight text-white text-base block group-hover:text-accent-purple transition-colors">
+            <span className="font-display font-bold tracking-tight text-white text-base block group-hover:text-accent-lime transition-colors">
               OTAJON JAHONGIROV
             </span>
-            <span className="text-[10px] tracking-widest text-gray-400 uppercase font-medium block">
+            <span className="text-[10px] tracking-widest text-accent-lime uppercase font-mono font-medium block">
               Creative Studio
             </span>
           </div>
         </Link>
 
         {/* Desktop Nav Links */}
-        <nav className="hidden lg:flex items-center gap-1 bg-white/[0.03] border border-white/[0.08] px-4 py-1.5 rounded-full backdrop-blur-md">
+        <nav className="hidden lg:flex items-center gap-1 bg-white/[0.04] border border-white/[0.08] px-4 py-1.5 rounded-full backdrop-blur-md">
           {navLinks.map((link) => {
             const isActive = pathname === link.href;
             return (
@@ -73,8 +73,8 @@ export const Navbar = () => {
                 href={link.href}
                 className={`px-4 py-1.5 rounded-full text-xs font-medium transition-all duration-200 ${
                   isActive
-                    ? 'bg-white/10 text-white shadow-inner font-semibold'
-                    : 'text-gray-400 hover:text-white hover:bg-white/5'
+                    ? 'bg-accent-lime text-black font-semibold shadow-md shadow-accent-lime/20'
+                    : 'text-gray-300 hover:text-white hover:bg-white/10'
                 }`}
               >
                 {link.label}
@@ -87,7 +87,7 @@ export const Navbar = () => {
         <div className="hidden lg:flex items-center gap-4">
           
           {/* Language Switcher */}
-          <div className="flex items-center gap-1 bg-white/[0.03] border border-white/[0.08] p-1 rounded-full text-xs">
+          <div className="flex items-center gap-1 bg-white/[0.04] border border-white/[0.08] p-1 rounded-full text-xs">
             <Globe className="w-3.5 h-3.5 text-gray-400 ml-2 mr-1" />
             {languages.map((l) => (
               <button
@@ -95,7 +95,7 @@ export const Navbar = () => {
                 onClick={() => setLang(l.code)}
                 className={`px-2.5 py-1 rounded-full font-medium transition-all ${
                   lang === l.code
-                    ? 'bg-accent-purple text-white shadow-lg shadow-accent-purple/30'
+                    ? 'bg-accent-lime text-black font-bold shadow-md shadow-accent-lime/30'
                     : 'text-gray-400 hover:text-white'
                 }`}
               >
@@ -104,26 +104,26 @@ export const Navbar = () => {
             ))}
           </div>
 
-          {/* Start Project CTA */}
+          {/* Start Project CTA Button (Matching Reference Design Pill Button) */}
           <Link
             href="/request"
-            className="flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-accent-purple to-accent-blue hover:from-accent-purple/90 hover:to-accent-blue/90 text-white text-xs font-semibold shadow-lg shadow-accent-purple/20 transition-all hover:scale-105 active:scale-95"
+            className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-accent-lime text-black hover:bg-accent-limeBright text-xs font-bold shadow-xl shadow-accent-lime/20 transition-all hover:scale-105 active:scale-95 group"
           >
-            <Sparkles className="w-3.5 h-3.5" />
             <span>{t('nav_request')}</span>
+            <ArrowUpRight className="w-3.5 h-3.5 stroke-[2.5] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
           </Link>
         </div>
 
         {/* Mobile Hamburger Toggle */}
         <div className="flex lg:hidden items-center gap-3">
-          <div className="flex items-center gap-1 bg-white/[0.03] border border-white/[0.08] p-1 rounded-full text-xs">
+          <div className="flex items-center gap-1 bg-white/[0.04] border border-white/[0.08] p-1 rounded-full text-xs">
             {languages.map((l) => (
               <button
                 key={l.code}
                 onClick={() => setLang(l.code)}
                 className={`px-2 py-0.5 rounded-full font-medium transition-all ${
                   lang === l.code
-                    ? 'bg-accent-purple text-white'
+                    ? 'bg-accent-lime text-black font-bold'
                     : 'text-gray-400'
                 }`}
               >
@@ -142,7 +142,7 @@ export const Navbar = () => {
 
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
-        <div className="lg:hidden mt-4 pt-4 border-t border-card-border flex flex-col gap-3 pb-4 animate-in slide-in-from-top duration-300">
+        <div className="lg:hidden mt-4 pt-4 border-t border-white/10 flex flex-col gap-3 pb-4 animate-in slide-in-from-top duration-300">
           {navLinks.map((link) => (
             <Link
               key={link.href}
@@ -156,10 +156,10 @@ export const Navbar = () => {
           <Link
             href="/request"
             onClick={() => setMobileMenuOpen(false)}
-            className="mt-2 flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-gradient-to-r from-accent-purple to-accent-blue text-white text-sm font-semibold"
+            className="mt-2 flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-accent-lime text-black text-sm font-bold shadow-lg shadow-accent-lime/20"
           >
-            <Sparkles className="w-4 h-4" />
             <span>{t('nav_request')}</span>
+            <ArrowUpRight className="w-4 h-4" />
           </Link>
         </div>
       )}

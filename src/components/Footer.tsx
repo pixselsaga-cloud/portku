@@ -22,9 +22,9 @@ export const Footer = () => {
   };
 
   return (
-    <footer className="relative border-t border-card-border bg-background pt-16 pb-12 overflow-hidden">
+    <footer className="relative border-t border-white/10 bg-background pt-16 pb-12 overflow-hidden">
       {/* Glow Orbs background */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-48 bg-accent-purple/10 blur-[120px] pointer-events-none" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-48 lime-glow-halo opacity-60 pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-8 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
@@ -32,7 +32,7 @@ export const Footer = () => {
           {/* Brand & Studio Statement with user_avatar.jpg */}
           <div className="md:col-span-2 space-y-5">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-accent-purple via-accent-blue to-accent-cyan p-[1px] shadow-lg shadow-accent-purple/20 overflow-hidden">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-accent-lime via-accent-emerald to-accent-cyan p-[1px] shadow-lg shadow-accent-lime/20 overflow-hidden">
                 <img
                   src="/assets/user_avatar.jpg"
                   alt="Otajon Jahongirov Avatar"
@@ -53,15 +53,15 @@ export const Footer = () => {
                 href={tgDirectUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-2.5 px-6 py-3 rounded-2xl bg-gradient-to-r from-accent-blue via-accent-purple to-accent-cyan hover:opacity-95 text-white font-display font-bold text-xs shadow-xl shadow-accent-blue/30 transition-all hover:scale-105 active:scale-95 group"
+                className="inline-flex items-center gap-2.5 px-6 py-3 rounded-full bg-accent-lime hover:bg-accent-limeBright text-black font-display font-bold text-xs shadow-xl shadow-accent-lime/25 transition-all hover:scale-105 active:scale-95 group"
               >
-                <MessageCircle className="w-4 h-4 fill-current text-white group-hover:scale-110 transition-transform" />
+                <MessageCircle className="w-4 h-4 fill-current text-black group-hover:scale-110 transition-transform" />
                 <span>{t('tg_contact_btn')}</span>
-                <ArrowUpRight className="w-3.5 h-3.5 opacity-70 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
+                <ArrowUpRight className="w-3.5 h-3.5 stroke-[2.5] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
               </a>
             </div>
 
-            <div className="flex items-center gap-2 text-xs text-accent-emerald bg-accent-emerald/10 border border-accent-emerald/20 px-3.5 py-1.5 rounded-full w-fit">
+            <div className="flex items-center gap-2 text-xs text-accent-lime bg-accent-lime/10 border border-accent-lime/20 px-3.5 py-1.5 rounded-full w-fit">
               <ShieldCheck className="w-4 h-4" />
               <span>{t('verified_studio')}</span>
             </div>
@@ -74,15 +74,15 @@ export const Footer = () => {
             </h4>
 
             <div className="space-y-1">
-              <p className="text-gray-400 text-xs font-medium">Direct Phone</p>
+              <p className="text-gray-400 text-xs font-medium">{t('contact_direct_phone')}</p>
               <div className="flex items-center gap-2">
-                <a href={`tel:${phoneNum.replace(/\s+/g, '')}`} className="font-mono text-white text-sm font-bold hover:text-accent-purple transition-colors">
+                <a href={`tel:${phoneNum.replace(/\s+/g, '')}`} className="font-mono text-white text-sm font-bold hover:text-accent-lime transition-colors">
                   {phoneNum}
                 </a>
                 <button
                   onClick={handleCopyPhone}
                   title="Copy Phone Number"
-                  className="p-1.5 rounded-xl bg-white/[0.05] border border-white/[0.1] text-gray-400 hover:text-white hover:border-accent-purple transition-all"
+                  className="p-1.5 rounded-xl bg-white/[0.05] border border-white/[0.1] text-gray-400 hover:text-white hover:border-accent-lime transition-all"
                 >
                   <Copy className="w-3.5 h-3.5" />
                 </button>
@@ -90,8 +90,8 @@ export const Footer = () => {
             </div>
 
             <div className="space-y-1">
-              <p className="text-gray-400 text-xs font-medium">Studio Email</p>
-              <a href={`mailto:${emailAddr}`} className="text-white hover:text-accent-purple transition-colors font-mono text-xs font-semibold">
+              <p className="text-gray-400 text-xs font-medium">{t('contact_studio_email')}</p>
+              <a href={`mailto:${emailAddr}`} className="text-white hover:text-accent-lime transition-colors font-mono text-xs font-semibold">
                 {emailAddr}
               </a>
             </div>
@@ -101,9 +101,9 @@ export const Footer = () => {
               <a
                 href="/assets/Otajon_Jahongirov_CV.pdf"
                 download
-                className="inline-flex items-center gap-2 text-xs font-semibold px-4 py-2.5 rounded-xl bg-white/[0.05] border border-white/[0.12] text-white hover:border-accent-purple hover:bg-accent-purple/10 transition-all"
+                className="inline-flex items-center gap-2 text-xs font-semibold px-4 py-2.5 rounded-xl bg-white/[0.05] border border-white/[0.12] text-white hover:border-accent-lime hover:bg-accent-lime/10 transition-all"
               >
-                <Download className="w-3.5 h-3.5 text-accent-purple" />
+                <Download className="w-3.5 h-3.5 text-accent-lime" />
                 <span>{t('cv_download')}</span>
               </a>
             </div>
@@ -112,7 +112,7 @@ export const Footer = () => {
           {/* Social Channels — Telegram & Instagram ONLY */}
           <div className="space-y-4">
             <h4 className="font-display font-bold text-white text-xs uppercase tracking-widest text-gray-400">
-              Social Channels
+              {t('social_channels')}
             </h4>
             <div className="flex flex-col gap-2.5 text-xs">
               
@@ -121,10 +121,10 @@ export const Footer = () => {
                 href={tgDirectUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="flex items-center justify-between p-3 rounded-2xl bg-card-DEFAULT border border-card-border hover:border-accent-blue/50 text-white font-medium hover:bg-accent-blue/10 transition-all group"
+                className="flex items-center justify-between p-3 rounded-2xl bg-card-DEFAULT border border-white/10 hover:border-accent-lime/50 text-white font-medium hover:bg-accent-lime/10 transition-all group"
               >
                 <div className="flex items-center gap-2.5">
-                  <Send className="w-4 h-4 text-accent-blue group-hover:scale-110 transition-transform" />
+                  <Send className="w-4 h-4 text-accent-lime group-hover:scale-110 transition-transform" />
                   <span className="font-semibold">{t('tg_direct')}</span>
                 </div>
                 <ArrowUpRight className="w-3.5 h-3.5 text-gray-400 group-hover:text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
@@ -135,7 +135,7 @@ export const Footer = () => {
                 href={tgChannelUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="flex items-center justify-between p-3 rounded-2xl bg-card-DEFAULT border border-card-border hover:border-accent-cyan/50 text-white font-medium hover:bg-accent-cyan/10 transition-all group"
+                className="flex items-center justify-between p-3 rounded-2xl bg-card-DEFAULT border border-white/10 hover:border-accent-cyan/50 text-white font-medium hover:bg-accent-cyan/10 transition-all group"
               >
                 <div className="flex items-center gap-2.5">
                   <Send className="w-4 h-4 text-accent-cyan group-hover:scale-110 transition-transform" />
@@ -149,7 +149,7 @@ export const Footer = () => {
                 href={instaUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="flex items-center justify-between p-3 rounded-2xl bg-card-DEFAULT border border-card-border hover:border-accent-rose/50 text-white font-medium hover:bg-accent-rose/10 transition-all group"
+                className="flex items-center justify-between p-3 rounded-2xl bg-card-DEFAULT border border-white/10 hover:border-accent-rose/50 text-white font-medium hover:bg-accent-rose/10 transition-all group"
               >
                 <div className="flex items-center gap-2.5">
                   <Instagram className="w-4 h-4 text-accent-rose group-hover:scale-110 transition-transform" />
@@ -168,8 +168,8 @@ export const Footer = () => {
             <Link href="/client" className="hover:text-gray-300 transition-colors">
               {t('nav_client')}
             </Link>
-            <Link href="/admin" className="flex items-center gap-1.5 text-gray-600 hover:text-accent-purple transition-colors font-mono text-[11px]">
-              <Lock className="w-3 h-3 text-accent-purple" />
+            <Link href="/admin" className="flex items-center gap-1.5 text-gray-600 hover:text-accent-lime transition-colors font-mono text-[11px]">
+              <Lock className="w-3 h-3 text-accent-lime" />
               <span>Studio Admin CMS</span>
             </Link>
           </div>
