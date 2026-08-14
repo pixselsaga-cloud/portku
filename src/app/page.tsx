@@ -141,8 +141,8 @@ export default function HomePage() {
       {/* 1. HERO SECTION (Electric Lime Dark Theme matching reference) */}
       <section className="relative px-4 sm:px-8 max-w-7xl mx-auto pt-6 sm:pt-12 text-center">
         
-        {/* Lime Glowing Radial Halo */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-[700px] h-[350px] lime-glow-halo pointer-events-none rounded-full" />
+        {/* Subtle Lime Glow */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-[500px] h-[250px] lime-glow-halo pointer-events-none rounded-full opacity-50" />
 
         <div className="text-center space-y-5 sm:space-y-7 relative z-10 max-w-4xl mx-auto">
           
@@ -152,13 +152,13 @@ export default function HomePage() {
             <span>{t('hero_pill_badge')}</span>
           </div>
 
-          {/* Main Headline with Highlighted Lime Text */}
-          <h1 className="hero-headline font-display font-extrabold text-white tracking-tight leading-[1.05]">
-            {t('hero_headline_1')}<span className="text-accent-lime font-black">{t('hero_headline_highlight')}</span>{t('hero_headline_2')}
+          {/* Main Headline */}
+          <h1 className="font-display font-bold text-white text-2xl sm:text-4xl lg:text-5xl tracking-tight leading-tight">
+            {t('hero_headline_1')}<span className="text-accent-lime">{t('hero_headline_highlight')}</span>{t('hero_headline_2')}
           </h1>
 
           {/* Subtitle */}
-          <p className="text-gray-300 text-sm sm:text-lg leading-relaxed max-w-2xl mx-auto font-normal">
+          <p className="text-gray-400 text-xs sm:text-sm leading-relaxed max-w-xl mx-auto">
             {t('hero_subtitle')}
           </p>
 
@@ -166,7 +166,7 @@ export default function HomePage() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 pt-3 w-full">
             <Link
               href="/works"
-              className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-accent-lime text-black text-xs sm:text-sm font-bold shadow-xl shadow-accent-lime/25 flex items-center justify-center gap-2 hover:bg-accent-limeBright hover:scale-105 active:scale-95 transition-all"
+              className="w-full sm:w-auto px-6 py-3 rounded-full bg-accent-lime text-black text-xs sm:text-sm font-bold shadow-lg shadow-accent-lime/15 flex items-center justify-center gap-2 hover:bg-accent-limeBright transition-all"
             >
               <span>{t('hero_cta_primary')}</span>
               <ArrowRight className="w-4 h-4 shrink-0 stroke-[2.5]" />
@@ -174,7 +174,7 @@ export default function HomePage() {
 
             <Link
               href="/request"
-              className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-white/[0.05] border border-white/[0.12] text-white text-xs sm:text-sm font-bold flex items-center justify-center gap-2 hover:bg-white/[0.1] hover:border-accent-lime/40 transition-all"
+              className="w-full sm:w-auto px-6 py-3 rounded-full bg-white/[0.05] border border-white/10 text-white text-xs sm:text-sm font-medium flex items-center justify-center gap-2 hover:bg-white/[0.08] transition-all"
             >
               <span>{t('hero_cta_secondary')}</span>
             </Link>
@@ -271,7 +271,7 @@ export default function HomePage() {
           
           {/* Left Text Column */}
           <div className="lg:col-span-6 space-y-6">
-            <h2 className="font-display font-extrabold text-white text-2xl sm:text-4xl tracking-tight leading-tight">
+            <h2 className="font-display font-bold text-white text-xl sm:text-3xl tracking-tight leading-tight">
               {t('clarity_title_1')}<span className="text-accent-lime">{t('clarity_title_highlight')}</span>{t('clarity_title_2')}
             </h2>
             <p className="text-gray-300 text-xs sm:text-sm leading-relaxed">
@@ -334,7 +334,7 @@ export default function HomePage() {
       {/* 4. BENTO GRID SHOWCASE (Matching Reference Image Section 4) */}
       <section className="max-w-7xl mx-auto px-4 sm:px-8 space-y-8">
         <div className="text-center space-y-2 max-w-xl mx-auto">
-          <h2 className="font-display font-extrabold text-white text-2xl sm:text-4xl tracking-tight">
+          <h2 className="font-display font-bold text-white text-xl sm:text-3xl tracking-tight">
             {t('bento_title_1')}<span className="text-accent-lime">{t('bento_title_highlight')}</span>{t('bento_title_2')}
           </h2>
           <p className="text-gray-400 text-xs sm:text-sm">
@@ -347,7 +347,7 @@ export default function HomePage() {
           {/* Bento Card 1: Electric Lime Highlight Card */}
           <div className="p-6 sm:p-8 rounded-3xl lime-card-active space-y-6 flex flex-col justify-between shadow-2xl transition-transform hover:scale-[1.02]">
             <div className="space-y-3">
-              <h3 className="font-display font-extrabold text-black text-xl sm:text-2xl leading-tight">
+              <h3 className="font-display font-bold text-black text-lg sm:text-xl leading-tight">
                 {t('bento_automation_title')}
               </h3>
               <p className="text-black/80 text-xs leading-relaxed font-medium">
@@ -368,7 +368,7 @@ export default function HomePage() {
           {/* Bento Card 2: Performance Analytics (Dark Glass with Lime Line Graph) */}
           <div className="p-6 sm:p-8 rounded-3xl bg-card-DEFAULT border border-white/10 space-y-6 flex flex-col justify-between shadow-xl hover:border-accent-lime/40 transition-all">
             <div className="space-y-3">
-              <h3 className="font-display font-bold text-white text-xl sm:text-2xl leading-tight">
+              <h3 className="font-display font-bold text-white text-lg sm:text-xl leading-tight">
                 {t('bento_analytics_title')}
               </h3>
               <p className="text-gray-400 text-xs leading-relaxed">
@@ -392,7 +392,7 @@ export default function HomePage() {
           {/* Bento Card 3: Business Strategy (Dark Glass with Lime Ring Chart) */}
           <div className="p-6 sm:p-8 rounded-3xl bg-card-DEFAULT border border-white/10 space-y-6 flex flex-col justify-between shadow-xl hover:border-accent-lime/40 transition-all">
             <div className="space-y-3">
-              <h3 className="font-display font-bold text-white text-xl sm:text-2xl leading-tight">
+              <h3 className="font-display font-bold text-white text-lg sm:text-xl leading-tight">
                 {t('bento_strategy_title')}
               </h3>
               <p className="text-gray-400 text-xs leading-relaxed">
@@ -415,7 +415,7 @@ export default function HomePage() {
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-white/10 pb-6">
           <div>
             <span className="text-xs font-mono text-accent-lime uppercase tracking-widest font-bold">{t('process_label')}</span>
-            <h2 className="font-display font-extrabold text-white text-2xl sm:text-4xl tracking-tight mt-1">
+            <h2 className="font-display font-bold text-white text-xl sm:text-3xl tracking-tight mt-1">
               {t('process_title_1')}<span className="text-accent-lime">{t('process_title_highlight')}</span>{t('process_title_2')}
             </h2>
           </div>
@@ -554,18 +554,18 @@ export default function HomePage() {
           <div className="absolute inset-0 lime-glow-halo opacity-75 pointer-events-none" />
 
           <div className="space-y-3 max-w-xl mx-auto relative z-10">
-            <h2 className="font-display font-extrabold text-white text-2xl sm:text-4xl tracking-tight">
-              {t('cta_boost_title_1')}<span className="text-accent-lime">{t('cta_boost_highlight')}</span>{t('cta_boost_title_2')}
+            <h2 className="font-display font-extrabold text-white text-xl sm:text-3xl tracking-tight">
+              {t('cta_title')}
             </h2>
             <p className="text-gray-300 text-xs sm:text-sm leading-relaxed">
-              {t('cta_boost_desc')}
+              {t('cta_subtitle')}
             </p>
           </div>
 
           <div className="pt-2 relative z-10 flex items-center justify-center">
             <Link
               href="/request"
-              className="px-8 py-3.5 rounded-full bg-accent-lime text-black text-xs sm:text-sm font-bold shadow-xl shadow-accent-lime/30 hover:bg-accent-limeBright hover:scale-105 transition-all flex items-center gap-2"
+              className="px-7 py-3 rounded-full bg-accent-lime text-black text-xs sm:text-sm font-bold shadow-lg shadow-accent-lime/20 hover:bg-accent-limeBright hover:scale-105 transition-all flex items-center gap-2"
             >
               <Sparkles className="w-4 h-4" />
               <span>{t('cta_btn')}</span>

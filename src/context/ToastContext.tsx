@@ -36,7 +36,7 @@ export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   return (
     <ToastContext.Provider value={{ showToast }}>
       {children}
-      <div className="fixed bottom-6 right-6 z-[9999] flex flex-col gap-3 max-w-sm w-full pointer-events-none">
+      <div className="fixed bottom-4 left-4 right-4 sm:bottom-6 sm:left-auto sm:right-6 z-[9999] flex flex-col gap-2 sm:gap-3 sm:max-w-sm w-auto sm:w-full pointer-events-none">
         <AnimatePresence>
           {toasts.map((t) => (
             <motion.div
@@ -44,19 +44,19 @@ export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({ childre
               initial={{ opacity: 0, y: 20, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, scale: 0.9, y: 10 }}
-              className="pointer-events-auto flex items-center justify-between gap-3 p-4 rounded-xl bg-card-DEFAULT border border-card-border backdrop-blur-xl shadow-2xl text-foreground text-sm"
+              className="pointer-events-auto flex items-center justify-between gap-2 sm:gap-3 px-3 py-2.5 sm:p-4 rounded-xl bg-card-DEFAULT border border-white/10 backdrop-blur-xl shadow-2xl text-foreground text-xs sm:text-sm"
             >
-              <div className="flex items-center gap-3">
-                {t.type === 'success' && <CheckCircle className="w-5 h-5 text-accent-emerald shrink-0" />}
-                {t.type === 'warning' && <AlertTriangle className="w-5 h-5 text-accent-gold shrink-0" />}
-                {t.type === 'info' && <Info className="w-5 h-5 text-accent-purple shrink-0" />}
-                <span>{t.message}</span>
+              <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+                {t.type === 'success' && <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-accent-lime shrink-0" />}
+                {t.type === 'warning' && <AlertTriangle className="w-4 h-4 sm:w-5 sm:h-5 text-accent-gold shrink-0" />}
+                {t.type === 'info' && <Info className="w-4 h-4 sm:w-5 sm:h-5 text-accent-lime shrink-0" />}
+                <span className="truncate">{t.message}</span>
               </div>
               <button
                 onClick={() => removeToast(t.id)}
-                className="text-gray-400 hover:text-white transition-colors"
+                className="text-gray-400 hover:text-white transition-colors shrink-0"
               >
-                <X className="w-4 h-4" />
+                <X className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
               </button>
             </motion.div>
           ))}
