@@ -98,7 +98,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
           </span>
           {featured && (
             <span className="px-2.5 py-0.5 rounded-full bg-accent-purple/80 backdrop-blur-md text-[10px] font-bold text-white uppercase tracking-wider shadow-lg shadow-accent-purple/30">
-              Featured Case
+              {t('featured_case_badge')}
             </span>
           )}
         </div>

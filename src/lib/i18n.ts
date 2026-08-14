@@ -275,7 +275,11 @@ export const translations = {
     cta_btn: "Loyiha So'rovini Boshlash",
     contact_direct_phone: "Telefon raqami",
     contact_studio_email: "Studiya Emaili",
-    social_channels: "Ijtimoiy Tarmoqlar"
+    social_channels: "Ijtimoiy Tarmoqlar",
+    showcase_catalog: "Loyihalar Katalogi",
+    featured_works_title: "Tanlangan San'at Asarlari va Loyihalar",
+    view_all_works: "Barcha ishlarni ko'rish",
+    featured_case_badge: "Tanlangan Loyiha"
   },
   ru: {
     // Nav
@@ -421,7 +425,11 @@ export const translations = {
     cta_btn: "Начать Запрос Проекта",
     contact_direct_phone: "Прямой телефон",
     contact_studio_email: "Email студии",
-    social_channels: "Социальные Сети"
+    social_channels: "Социальные Сети",
+    showcase_catalog: "Каталог Проектов",
+    featured_works_title: "Избранные Работы и Проекты",
+    view_all_works: "Смотреть все работы",
+    featured_case_badge: "Избранный Кейс"
   },
   en: {
     // Nav
@@ -567,6 +575,10 @@ export const translations = {
     cta_btn: "Start Project Inquiry",
     contact_direct_phone: "Direct Phone",
     contact_studio_email: "Studio Email",
-    social_channels: "Social Channels"
+    social_channels: "Social Channels",
+    showcase_catalog: "Showcase Catalog",
+    featured_works_title: "Featured Artwork & Projects",
+    view_all_works: "View All Works",
+    featured_case_badge: "Featured Case"
   }
 };

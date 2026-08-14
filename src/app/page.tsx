@@ -170,9 +170,9 @@ export default function HomePage() {
       <section className="max-w-7xl mx-auto px-4 sm:px-8 space-y-6 sm:space-y-8">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-card-border pb-4 sm:pb-6">
           <div>
-            <span className="text-xs font-mono text-accent-purple uppercase tracking-widest font-bold">Showcase Catalog</span>
+            <span className="text-xs font-mono text-accent-purple uppercase tracking-widest font-bold">{t('showcase_catalog')}</span>
             <h2 className="font-display font-bold text-white text-xl sm:text-3xl tracking-tight mt-1">
-              Featured Artwork & Projects
+              {t('featured_works_title')}
             </h2>
           </div>
 
@@ -180,7 +180,7 @@ export default function HomePage() {
             href="/works"
             className="inline-flex items-center gap-2 text-xs font-semibold text-accent-purple hover:text-white transition-colors"
           >
-            <span>View All Works</span>
+            <span>{t('view_all_works')}</span>
             <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
