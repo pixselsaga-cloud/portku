@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 
@@ -6,24 +8,35 @@ export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
     const code = searchParams.get('code');
 
-    if (!code) {
-      return NextResponse.json({ success: false, error: 'Access code required' }, { status: 400 });
+    // If a specific access code is provided (Client Login)
+    if (code) {
+      const clientProject = await prisma.clientProject.findUnique({
+        where: { accessCode: code.trim().toUpperCase() },
+        include: {
+          feedbacks: {
+            orderBy: { createdAt: 'asc' },
+          },
+        },
+      });
+
+      if (!clientProject) {
+        return NextResponse.json({ success: false, error: 'Invalid access code' }, { status: 404 });
+      }
+
+      return NextResponse.json({ success: true, project: clientProject });
     }
 
-    const clientProject = await prisma.clientProject.findUnique({
-      where: { accessCode: code },
+    // Otherwise return ALL client projects (Admin Panel)
+    const allProjects = await prisma.clientProject.findMany({
       include: {
         feedbacks: {
-          orderBy: { createdAt: 'asc' },
+          orderBy: { createdAt: 'desc' },
         },
       },
+      orderBy: { createdAt: 'desc' },
     });
 
-    if (!clientProject) {
-      return NextResponse.json({ success: false, error: 'Invalid access code' }, { status: 404 });
-    }
-
-    return NextResponse.json({ success: true, project: clientProject });
+    return NextResponse.json({ success: true, projects: allProjects });
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });
   }
@@ -32,16 +45,50 @@ export async function GET(request: Request) {
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { code, comment, action } = body;
+    const { code, comment, action, title, clientName, clientEmail, accessCode, deliverables, description, status } = body;
 
+    // Admin creates a new client project
+    if (action === 'create') {
+      if (!title || !clientName || !accessCode) {
+        return NextResponse.json({ success: false, error: 'Title, client name, and access code are required' }, { status: 400 });
+      }
+
+      const formattedCode = accessCode.trim().toUpperCase();
+
+      // Check for code uniqueness
+      const existing = await prisma.clientProject.findUnique({
+        where: { accessCode: formattedCode },
+      });
+
+      if (existing) {
+        return NextResponse.json({ success: false, error: 'This access code is already taken. Choose another code.' }, { status: 400 });
+      }
+
+      const created = await prisma.clientProject.create({
+        data: {
+          title,
+          clientName,
+          clientEmail: clientEmail || '',
+          accessCode: formattedCode,
+          description: description || '',
+          deliverables: deliverables ? (typeof deliverables === 'string' ? deliverables : JSON.stringify(deliverables)) : '[]',
+          status: status || 'in_progress',
+        },
+      });
+
+      return NextResponse.json({ success: true, project: created });
+    }
+
+    // Client or Admin looks up by code
     const clientProject = await prisma.clientProject.findUnique({
-      where: { accessCode: code },
+      where: { accessCode: code ? code.trim().toUpperCase() : '' },
     });
 
     if (!clientProject) {
       return NextResponse.json({ success: false, error: 'Project not found' }, { status: 404 });
     }
 
+    // Approve Project
     if (action === 'approve') {
       const updated = await prisma.clientProject.update({
         where: { id: clientProject.id },
@@ -50,6 +97,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ success: true, project: updated });
     }
 
+    // Add Feedback comment
     if (comment) {
       const feedback = await prisma.clientFeedback.create({
         data: {
@@ -62,6 +110,55 @@ export async function POST(request: Request) {
     }
 
     return NextResponse.json({ success: false, error: 'No action performed' }, { status: 400 });
+  } catch (error: any) {
+    return NextResponse.json({ success: false, error: error.message }, { status: 500 });
+  }
+}
+
+export async function PUT(request: Request) {
+  try {
+    const body = await request.json();
+    const { id, title, clientName, clientEmail, accessCode, deliverables, description, status } = body;
+
+    if (!id) {
+      return NextResponse.json({ success: false, error: 'Project ID required' }, { status: 400 });
+    }
+
+    const updated = await prisma.clientProject.update({
+      where: { id },
+      data: {
+        ...(title && { title }),
+        ...(clientName && { clientName }),
+        ...(clientEmail !== undefined && { clientEmail }),
+        ...(accessCode && { accessCode: accessCode.trim().toUpperCase() }),
+        ...(description !== undefined && { description }),
+        ...(deliverables !== undefined && {
+          deliverables: typeof deliverables === 'string' ? deliverables : JSON.stringify(deliverables),
+        }),
+        ...(status && { status }),
+      },
+    });
+
+    return NextResponse.json({ success: true, project: updated });
+  } catch (error: any) {
+    return NextResponse.json({ success: false, error: error.message }, { status: 500 });
+  }
+}
+
+export async function DELETE(request: Request) {
+  try {
+    const { searchParams } = new URL(request.url);
+    const id = searchParams.get('id');
+
+    if (!id) {
+      return NextResponse.json({ success: false, error: 'Project ID required' }, { status: 400 });
+    }
+
+    await prisma.clientProject.delete({
+      where: { id },
+    });
+
+    return NextResponse.json({ success: true, message: 'Project deleted' });
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });
   }

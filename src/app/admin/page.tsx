@@ -45,7 +45,11 @@ import {
   Palette,
   Award,
   Layers,
-  ArrowRight
+  ArrowRight,
+  Copy,
+  Send,
+  FileCheck,
+  ShieldCheck
 } from 'lucide-react';
 
 export default function AdminDashboardPage() {
@@ -59,13 +63,28 @@ export default function AdminDashboardPage() {
 
   // Active Tab
   const [activeTab, setActiveTab] = useState<
-    'analytics' | 'services' | 'stats' | 'projects' | 'files' | 'messages' | 'requests' | 'settings'
+    'analytics' | 'services' | 'stats' | 'projects' | 'files' | 'messages' | 'requests' | 'client-portal' | 'settings'
   >('analytics');
 
   // Analytics State
   const [analyticsData, setAnalyticsData] = useState<any>(null);
   const [analyticsRange, setAnalyticsRange] = useState('30d');
   const [loadingAnalytics, setLoadingAnalytics] = useState(true);
+
+  // Client Portal Projects State
+  const [clientProjectsList, setClientProjectsList] = useState<any[]>([]);
+  const [clientModalOpen, setClientModalOpen] = useState(false);
+  const [editingClientProjectId, setEditingClientProjectId] = useState<string | null>(null);
+  const [clientTitle, setClientTitle] = useState('');
+  const [clientName, setClientName] = useState('');
+  const [clientEmail, setClientEmail] = useState('');
+  const [clientAccessCode, setClientAccessCode] = useState('');
+  const [clientDescription, setClientDescription] = useState('');
+  const [clientStatus, setClientStatus] = useState('in_progress');
+  const [clientDeliverablesList, setClientDeliverablesList] = useState<Array<{ name: string; size: string; url: string }>>([]);
+  const [newDelivName, setNewDelivName] = useState('');
+  const [newDelivSize, setNewDelivSize] = useState('');
+  const [newDelivUrl, setNewDelivUrl] = useState('');
 
   // Services CMS State
   const [servicesList, setServicesList] = useState<any[]>([]);
@@ -118,6 +137,7 @@ export default function AdminDashboardPage() {
       fetchMessages();
       fetchRequests();
       fetchSettings();
+      fetchClientProjects();
     }
   }, [isAuthenticated, analyticsRange]);
 
@@ -192,6 +212,145 @@ export default function AdminDashboardPage() {
     const res = await fetch('/api/settings', { cache: 'no-store' });
     const data = await res.json();
     if (data.success) setSiteSettings(data.settings);
+  };
+
+  const fetchClientProjects = async () => {
+    try {
+      const res = await fetch('/api/client-portal', { cache: 'no-store' });
+      const data = await res.json();
+      if (data.success) setClientProjectsList(data.projects || []);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  // CLIENT PORTAL CRUD HANDLERS
+  const generateAutoCode = () => {
+    const prefix = clientName ? clientName.trim().split(' ')[0].toUpperCase().replace(/[^A-Z0-9]/g, '') : 'CLIENT';
+    const num = Math.floor(1000 + Math.random() * 9000);
+    setClientAccessCode(`${prefix || 'CLIENT'}-${num}`);
+  };
+
+  const handleAddDeliverable = () => {
+    if (!newDelivName.trim() || !newDelivUrl.trim()) {
+      showToast('Fayl nomi va havolasini kiriting!', 'warning');
+      return;
+    }
+    setClientDeliverablesList((prev) => [
+      ...prev,
+      { name: newDelivName.trim(), size: newDelivSize.trim() || 'Ready File', url: newDelivUrl.trim() },
+    ]);
+    setNewDelivName('');
+    setNewDelivSize('');
+    setNewDelivUrl('');
+  };
+
+  const handleRemoveDeliverable = (idx: number) => {
+    setClientDeliverablesList((prev) => prev.filter((_, i) => i !== idx));
+  };
+
+  const handleSaveClientProject = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!clientTitle || !clientName || !clientAccessCode) {
+      showToast('Loyiha nomi, mijoz ismi va kodni kiriting!', 'warning');
+      return;
+    }
+
+    const payload = {
+      title: clientTitle,
+      clientName,
+      clientEmail,
+      accessCode: clientAccessCode.trim().toUpperCase(),
+      description: clientDescription,
+      status: clientStatus,
+      deliverables: clientDeliverablesList,
+    };
+
+    if (editingClientProjectId) {
+      const res = await fetch('/api/client-portal', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: editingClientProjectId, ...payload }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        showToast('Mijoz loyihasi yangilandi!', 'success');
+      } else {
+        showToast(data.error || 'Xatolik yuz berdi', 'warning');
+      }
+    } else {
+      const res = await fetch('/api/client-portal', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'create', ...payload }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        showToast('Yangi mijoz xonasi ochildi!', 'success');
+      } else {
+        showToast(data.error || 'Xatolik yuz berdi', 'warning');
+      }
+    }
+
+    setClientModalOpen(false);
+    resetClientForm();
+    fetchClientProjects();
+  };
+
+  const resetClientForm = () => {
+    setEditingClientProjectId(null);
+    setClientTitle('');
+    setClientName('');
+    setClientEmail('');
+    setClientAccessCode('');
+    setClientDescription('');
+    setClientStatus('in_progress');
+    setClientDeliverablesList([]);
+    setNewDelivName('');
+    setNewDelivSize('');
+    setNewDelivUrl('');
+  };
+
+  const handleEditClientProject = (proj: any) => {
+    setEditingClientProjectId(proj.id);
+    setClientTitle(proj.title);
+    setClientName(proj.clientName);
+    setClientEmail(proj.clientEmail || '');
+    setClientAccessCode(proj.accessCode);
+    setClientDescription(proj.description || '');
+    setClientStatus(proj.status || 'in_progress');
+    let deliv = [];
+    try {
+      deliv = proj.deliverables ? (typeof proj.deliverables === 'string' ? JSON.parse(proj.deliverables) : proj.deliverables) : [];
+    } catch {}
+    setClientDeliverablesList(deliv);
+    setClientModalOpen(true);
+  };
+
+  const handleDeleteClientProject = async (id: string) => {
+    if (!confirm("Haqiqatan ham bu mijoz loyihasini o'chirmoqchimisiz?")) return;
+    try {
+      const res = await fetch(`/api/client-portal?id=${id}`, { method: 'DELETE' });
+      const data = await res.json();
+      if (data.success) {
+        showToast("Mijoz xonasi o'chirildi", 'info');
+        fetchClientProjects();
+      }
+    } catch (err) {
+      showToast('Xatolik', 'warning');
+    }
+  };
+
+  const copyClientCode = (code: string) => {
+    navigator.clipboard.writeText(code);
+    showToast(`Kod nusxalandi: ${code}`, 'success');
+  };
+
+  const copyClientLink = (code: string) => {
+    const origin = typeof window !== 'undefined' ? window.location.origin : 'https://portku-portku.vercel.app';
+    const link = `${origin}/client/${code}`;
+    navigator.clipboard.writeText(link);
+    showToast(`Mijoz havolasi nusxalandi: ${link}`, 'success');
   };
 
   const handleExportCSV = () => {
@@ -468,6 +627,7 @@ export default function AdminDashboardPage() {
           { id: 'files', label: 'File Manager', icon: FileCode },
           { id: 'messages', label: 'Messages Inbox', icon: MessageSquare },
           { id: 'requests', label: 'Design Briefs', icon: Sparkles },
+          { id: 'client-portal', label: 'Mijoz Portallari (Client Rooms)', icon: Users },
           { id: 'settings', label: 'Site Settings', icon: Settings },
         ].map((tab) => {
           const IconC = tab.icon;
@@ -1165,7 +1325,393 @@ export default function AdminDashboardPage() {
         </div>
       )}
 
-      {/* 8. SITE SETTINGS */}
+      {/* 8. CLIENT PORTAL ROOMS CMS */}
+      {activeTab === 'client-portal' && (
+        <div className="space-y-6">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <h2 className="font-display font-bold text-white text-xl">Mijoz Portallari (Private Client Rooms)</h2>
+              <p className="text-xs text-gray-400">
+                Har bir mijoz uchun shaxsiy xona oching, fayllar biriktiring va kirish kodini mijozga yuboring.
+              </p>
+            </div>
+
+            <button
+              onClick={() => {
+                resetClientForm();
+                setClientModalOpen(true);
+              }}
+              className="flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-accent-purple text-white text-xs font-semibold shadow-lg shadow-accent-purple/20 hover:scale-105 active:scale-95 transition-all w-fit"
+            >
+              <Plus className="w-4 h-4" />
+              <span>Yangi Mijoz Xonasi Ochish</span>
+            </button>
+          </div>
+
+          {clientProjectsList.length === 0 ? (
+            <div className="p-12 text-center rounded-3xl bg-card-DEFAULT border border-card-border space-y-3">
+              <Users className="w-10 h-10 text-gray-600 mx-auto" />
+              <p className="text-gray-400 text-sm font-medium">Hozircha hech qanday mijoz xonasi ochilmagan.</p>
+              <button
+                onClick={() => {
+                  resetClientForm();
+                  setClientModalOpen(true);
+                }}
+                className="px-4 py-2 rounded-xl bg-white/10 text-white text-xs font-semibold hover:bg-white/20 transition-all"
+              >
+                + Birinchi mijoz xonasini ochish
+              </button>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {clientProjectsList.map((cp) => {
+                let delivs = [];
+                try {
+                  delivs = cp.deliverables ? (typeof cp.deliverables === 'string' ? JSON.parse(cp.deliverables) : cp.deliverables) : [];
+                } catch {}
+
+                const statusColor =
+                  cp.status === 'completed'
+                    ? 'bg-accent-emerald/10 border-accent-emerald/30 text-accent-emerald'
+                    : cp.status === 'review'
+                    ? 'bg-accent-purple/10 border-accent-purple/30 text-accent-purple'
+                    : cp.status === 'in_progress'
+                    ? 'bg-accent-cyan/10 border-accent-cyan/30 text-accent-cyan'
+                    : 'bg-accent-gold/10 border-accent-gold/30 text-accent-gold';
+
+                const statusLabel =
+                  cp.status === 'completed'
+                    ? 'Yakunlandi'
+                    : cp.status === 'review'
+                    ? 'Tekshiruvda'
+                    : cp.status === 'in_progress'
+                    ? 'Jarayonda'
+                    : 'Kutilmoqda';
+
+                const clientDirectUrl = typeof window !== 'undefined' ? `${window.location.origin}/client/${cp.accessCode}` : `https://portku-portku.vercel.app/client/${cp.accessCode}`;
+                const tgShareUrl = `https://t.me/share/url?url=${encodeURIComponent(clientDirectUrl)}&text=${encodeURIComponent(`Salom ${cp.clientName}! Sizning loyihangiz bo'yicha shaxsiy xona tayyor.\nKirish kodi: ${cp.accessCode}`)}`;
+
+                return (
+                  <div
+                    key={cp.id}
+                    className="p-6 rounded-3xl bg-card-DEFAULT border border-card-border space-y-5 hover:border-accent-purple/40 transition-all shadow-xl flex flex-col justify-between"
+                  >
+                    <div className="space-y-4">
+                      {/* Top Row: Title & Status */}
+                      <div className="flex items-start justify-between gap-2">
+                        <div>
+                          <span className={`px-2.5 py-1 rounded-full text-[10px] font-mono uppercase font-bold border ${statusColor}`}>
+                            {statusLabel}
+                          </span>
+                          <h3 className="font-display font-bold text-white text-lg mt-2 leading-tight">
+                            {cp.title}
+                          </h3>
+                          <p className="text-xs text-gray-400 mt-0.5">
+                            Mijoz: <span className="text-white font-medium">{cp.clientName}</span> {cp.clientEmail && `(${cp.clientEmail})`}
+                          </p>
+                        </div>
+
+                        <div className="flex items-center gap-1.5">
+                          <button
+                            onClick={() => handleEditClientProject(cp)}
+                            className="p-2 rounded-xl bg-white/5 hover:bg-accent-purple/20 text-gray-400 hover:text-accent-purple transition-all"
+                            title="Tahrirlash"
+                          >
+                            <Edit className="w-4 h-4" />
+                          </button>
+                          <button
+                            onClick={() => handleDeleteClientProject(cp.id)}
+                            className="p-2 rounded-xl bg-white/5 hover:bg-accent-rose/20 text-gray-400 hover:text-accent-rose transition-all"
+                            title="O'chirish"
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </button>
+                        </div>
+                      </div>
+
+                      {/* Access Code & Quick Actions Box */}
+                      <div className="p-3.5 rounded-2xl bg-black/40 border border-white/10 space-y-3">
+                        <div className="flex items-center justify-between">
+                          <span className="text-[11px] font-mono text-gray-400">MAXFIY KOD:</span>
+                          <span className="font-mono text-sm font-black text-accent-lime tracking-wider bg-accent-lime/10 px-2.5 py-0.5 rounded-lg border border-accent-lime/30">
+                            {cp.accessCode}
+                          </span>
+                        </div>
+
+                        {/* Action buttons */}
+                        <div className="grid grid-cols-3 gap-2 pt-1">
+                          <button
+                            onClick={() => copyClientCode(cp.accessCode)}
+                            className="flex items-center justify-center gap-1.5 py-2 px-2 rounded-xl bg-white/5 hover:bg-white/10 text-white text-[11px] font-medium transition-all"
+                            title="Kodni nusxalash"
+                          >
+                            <Copy className="w-3.5 h-3.5 text-accent-cyan" />
+                            <span>Kodni olish</span>
+                          </button>
+
+                          <button
+                            onClick={() => copyClientLink(cp.accessCode)}
+                            className="flex items-center justify-center gap-1.5 py-2 px-2 rounded-xl bg-white/5 hover:bg-white/10 text-white text-[11px] font-medium transition-all"
+                            title="Havolani nusxalash"
+                          >
+                            <ExternalLink className="w-3.5 h-3.5 text-accent-purple" />
+                            <span>Havola</span>
+                          </button>
+
+                          <a
+                            href={tgShareUrl}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="flex items-center justify-center gap-1.5 py-2 px-2 rounded-xl bg-blue-500/20 hover:bg-blue-500/30 text-blue-400 text-[11px] font-medium transition-all"
+                            title="Telegramda yuborish"
+                          >
+                            <Send className="w-3.5 h-3.5" />
+                            <span>Telegram</span>
+                          </a>
+                        </div>
+                      </div>
+
+                      {/* Attached Deliverable Files */}
+                      <div className="space-y-1.5 text-xs">
+                        <div className="text-[11px] font-mono text-gray-400 uppercase font-bold flex items-center gap-1.5">
+                          <FileCheck className="w-3.5 h-3.5 text-accent-emerald" />
+                          <span>Biriktirilgan Fayllar ({delivs.length}):</span>
+                        </div>
+                        {delivs.length > 0 ? (
+                          <div className="space-y-1 max-h-24 overflow-y-auto pr-1">
+                            {delivs.map((d: any, idx: number) => (
+                              <div key={idx} className="flex items-center justify-between text-[11px] bg-white/[0.03] px-2.5 py-1.5 rounded-lg border border-white/[0.05]">
+                                <span className="truncate text-gray-200">{d.name}</span>
+                                <a href={d.url} target="_blank" rel="noreferrer" className="text-accent-cyan hover:underline ml-2 shrink-0">
+                                  Yuklab olish ↗
+                                </a>
+                              </div>
+                            ))}
+                          </div>
+                        ) : (
+                          <p className="text-[11px] text-gray-500 italic">Hali fayllar qo`shilmagan.</p>
+                        )}
+                      </div>
+
+                      {/* Client Feedbacks list */}
+                      {cp.feedbacks && cp.feedbacks.length > 0 && (
+                        <div className="p-3 rounded-xl bg-white/[0.02] border border-white/[0.05] space-y-1.5 text-xs">
+                          <span className="text-[10px] font-mono uppercase text-accent-cyan font-bold block">
+                            Mijoz fikrlari ({cp.feedbacks.length}):
+                          </span>
+                          <div className="space-y-1 max-h-20 overflow-y-auto pr-1">
+                            {cp.feedbacks.map((fb: any) => (
+                              <p key={fb.id} className="text-[11px] text-gray-300">
+                                <strong className="text-accent-purple">{fb.sender === 'client' ? cp.clientName : 'Admin'}:</strong> {fb.comment}
+                              </p>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Footer link to preview */}
+                    <div className="pt-3 border-t border-white/[0.06] flex items-center justify-between text-xs">
+                      <span className="text-gray-500 text-[10px] font-mono">
+                        {new Date(cp.createdAt).toLocaleDateString()}
+                      </span>
+                      <a
+                        href={`/client/${cp.accessCode}`}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="text-accent-lime hover:underline font-semibold flex items-center gap-1 text-[11px]"
+                      >
+                        <span>Mijoz sahifasini ko'rish</span>
+                        <ArrowRight className="w-3 h-3" />
+                      </a>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* CLIENT ROOM CREATE/EDIT MODAL */}
+      {clientModalOpen && (
+        <div className="fixed inset-0 z-[9999] bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
+          <div className="max-w-xl w-full p-6 sm:p-8 rounded-3xl bg-card-DEFAULT border border-card-border space-y-6 max-h-[90vh] overflow-y-auto shadow-2xl">
+            <div className="flex items-center justify-between border-b border-white/10 pb-4">
+              <h2 className="font-display font-bold text-white text-lg">
+                {editingClientProjectId ? 'Mijoz Xonasini Tahrirlash' : 'Yangi Mijoz Xonasi Ochish'}
+              </h2>
+              <button
+                onClick={() => {
+                  setClientModalOpen(false);
+                  resetClientForm();
+                }}
+                className="text-gray-400 hover:text-white text-sm"
+              >
+                ✕
+              </button>
+            </div>
+
+            <form onSubmit={handleSaveClientProject} className="space-y-4 text-xs">
+              <div>
+                <label className="block text-gray-300 font-medium mb-1">Mijoz Ismi / Kompaniya *</label>
+                <input
+                  type="text"
+                  required
+                  placeholder="Masalan: Akmal Shokirov yoki Apex Studio"
+                  value={clientName}
+                  onChange={(e) => setClientName(e.target.value)}
+                  className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-white focus:border-accent-purple"
+                />
+              </div>
+
+              <div>
+                <label className="block text-gray-300 font-medium mb-1">Loyiha Nomi *</label>
+                <input
+                  type="text"
+                  required
+                  placeholder="Masalan: Brand Identity & 3D Visual Rendering"
+                  value={clientTitle}
+                  onChange={(e) => setClientTitle(e.target.value)}
+                  className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-white focus:border-accent-purple"
+                />
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-gray-300 font-medium mb-1">Mijoz Email / Tel</label>
+                  <input
+                    type="text"
+                    placeholder="mijoz@gmail.com yoki +99890..."
+                    value={clientEmail}
+                    onChange={(e) => setClientEmail(e.target.value)}
+                    className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-white focus:border-accent-purple"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-gray-300 font-medium mb-1">Loyiha Holati</label>
+                  <select
+                    value={clientStatus}
+                    onChange={(e) => setClientStatus(e.target.value)}
+                    className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-white focus:border-accent-purple"
+                  >
+                    <option value="pending">01 — Kutilmoqda (Pending)</option>
+                    <option value="in_progress">02 — Jarayonda (In Progress)</option>
+                    <option value="review">03 — Ko'rib chiqilmoqda (Review)</option>
+                    <option value="completed">04 — Yakunlandi (Completed)</option>
+                  </select>
+                </div>
+              </div>
+
+              {/* Access Code Generation */}
+              <div>
+                <div className="flex items-center justify-between mb-1">
+                  <label className="text-gray-300 font-medium">Maxfiy Kirish Kodi *</label>
+                  <button
+                    type="button"
+                    onClick={generateAutoCode}
+                    className="text-[11px] text-accent-cyan hover:underline font-mono"
+                  >
+                    ⚡ Avtomatik Kod Yaratish
+                  </button>
+                </div>
+                <input
+                  type="text"
+                  required
+                  placeholder="Masalan: AKMAL-2025 yoki VIP-9900"
+                  value={clientAccessCode}
+                  onChange={(e) => setClientAccessCode(e.target.value.toUpperCase())}
+                  className="w-full font-mono uppercase bg-black/40 border border-accent-lime/40 rounded-xl px-4 py-2.5 text-accent-lime font-bold tracking-wider focus:border-accent-lime"
+                />
+              </div>
+
+              {/* Deliverable Files Section */}
+              <div className="p-4 rounded-2xl bg-black/30 border border-white/10 space-y-3">
+                <label className="block text-gray-300 font-medium">Tayyor Fayllar (Deliverables)</label>
+
+                {/* Add new deliverable inputs */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                  <input
+                    type="text"
+                    placeholder="Fayl nomi (Logo-Vector.svg)"
+                    value={newDelivName}
+                    onChange={(e) => setNewDelivName(e.target.value)}
+                    className="bg-black/40 border border-white/10 rounded-xl px-3 py-2 text-white text-xs"
+                  />
+                  <input
+                    type="text"
+                    placeholder="Hajmi (25 MB / Vector)"
+                    value={newDelivSize}
+                    onChange={(e) => setNewDelivSize(e.target.value)}
+                    className="bg-black/40 border border-white/10 rounded-xl px-3 py-2 text-white text-xs"
+                  />
+                  <input
+                    type="text"
+                    placeholder="Havola (URL / Google Drive)"
+                    value={newDelivUrl}
+                    onChange={(e) => setNewDelivUrl(e.target.value)}
+                    className="bg-black/40 border border-white/10 rounded-xl px-3 py-2 text-white text-xs"
+                  />
+                </div>
+
+                <button
+                  type="button"
+                  onClick={handleAddDeliverable}
+                  className="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-semibold transition-all flex items-center gap-1.5"
+                >
+                  <Plus className="w-3.5 h-3.5" />
+                  <span>Faylni ro'yxatga qo'shish</span>
+                </button>
+
+                {/* Deliverables List */}
+                {clientDeliverablesList.length > 0 && (
+                  <div className="space-y-1.5 pt-2">
+                    {clientDeliverablesList.map((d, i) => (
+                      <div key={i} className="flex items-center justify-between p-2 rounded-xl bg-white/5 text-xs">
+                        <div className="min-w-0 pr-2">
+                          <span className="font-semibold text-white">{d.name}</span>{' '}
+                          <span className="text-gray-400 text-[10px]">({d.size})</span>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => handleRemoveDeliverable(i)}
+                          className="text-accent-rose hover:text-red-400 p-1"
+                        >
+                          ✕
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* Submit Buttons */}
+              <div className="flex items-center justify-end gap-3 pt-4 border-t border-white/10">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setClientModalOpen(false);
+                    resetClientForm();
+                  }}
+                  className="px-5 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-gray-300 font-semibold"
+                >
+                  Bekor qilish
+                </button>
+
+                <button
+                  type="submit"
+                  className="px-6 py-2.5 rounded-xl bg-accent-purple text-white font-bold shadow-lg shadow-accent-purple/20 hover:scale-105 active:scale-95 transition-all"
+                >
+                  {editingClientProjectId ? 'O`zgarishlarni saqlash' : 'Mijoz xonasini ochish'}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* 9. SITE SETTINGS */}
       {activeTab === 'settings' && siteSettings && (
         <div className="max-w-xl mx-auto p-8 rounded-3xl bg-card-DEFAULT border border-card-border space-y-6">
           <h2 className="font-display font-bold text-white text-lg">Studio General Settings</h2>
