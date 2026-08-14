@@ -153,43 +153,43 @@ export default function AdminDashboardPage() {
   };
 
   const fetchServices = async () => {
-    const res = await fetch('/api/services');
+    const res = await fetch('/api/services', { cache: 'no-store' });
     const data = await res.json();
     if (data.success) setServicesList(data.services);
   };
 
   const fetchStats = async () => {
-    const res = await fetch('/api/stats');
+    const res = await fetch('/api/stats', { cache: 'no-store' });
     const data = await res.json();
     if (data.success) setStatsList(data.stats);
   };
 
   const fetchProjects = async () => {
-    const res = await fetch('/api/projects');
+    const res = await fetch('/api/projects', { cache: 'no-store' });
     const data = await res.json();
     if (data.success) setProjectsList(data.projects);
   };
 
   const fetchFiles = async () => {
-    const res = await fetch('/api/files');
+    const res = await fetch('/api/files', { cache: 'no-store' });
     const data = await res.json();
     if (data.success) setFilesList(data.files);
   };
 
   const fetchMessages = async () => {
-    const res = await fetch('/api/messages');
+    const res = await fetch('/api/messages', { cache: 'no-store' });
     const data = await res.json();
     if (data.success) setMessagesList(data.messages);
   };
 
   const fetchRequests = async () => {
-    const res = await fetch('/api/requests');
+    const res = await fetch('/api/requests', { cache: 'no-store' });
     const data = await res.json();
     if (data.success) setRequestsList(data.requests);
   };
 
   const fetchSettings = async () => {
-    const res = await fetch('/api/settings');
+    const res = await fetch('/api/settings', { cache: 'no-store' });
     const data = await res.json();
     if (data.success) setSiteSettings(data.settings);
   };

@@ -1,6 +1,15 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
+const noCacheHeaders = {
+  'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+  'Pragma': 'no-cache',
+  'Expires': '0',
+};
+
 export async function GET(
   request: Request,
   { params }: { params: { slug: string } }
@@ -15,7 +24,7 @@ export async function GET(
     });
 
     if (!project) {
-      return NextResponse.json({ success: false, error: 'Project not found' }, { status: 404 });
+      return NextResponse.json({ success: false, error: 'Project not found' }, { status: 404, headers: noCacheHeaders });
     }
 
     // Increment view count and record view event for Section 31 analytics
@@ -37,10 +46,10 @@ export async function GET(
       },
     });
 
-    return NextResponse.json({ success: true, project });
+    return NextResponse.json({ success: true, project }, { headers: noCacheHeaders });
   } catch (error: any) {
     console.error('Project Detail GET API error:', error);
-    return NextResponse.json({ success: false, error: error.message }, { status: 500 });
+    return NextResponse.json({ success: false, error: error.message }, { status: 500, headers: noCacheHeaders });
   }
 }
 
@@ -70,9 +79,9 @@ export async function PUT(
       },
     });
 
-    return NextResponse.json({ success: true, project: updated });
+    return NextResponse.json({ success: true, project: updated }, { headers: noCacheHeaders });
   } catch (error: any) {
-    return NextResponse.json({ success: false, error: error.message }, { status: 500 });
+    return NextResponse.json({ success: false, error: error.message }, { status: 500, headers: noCacheHeaders });
   }
 }
 
@@ -85,8 +94,8 @@ export async function DELETE(
     await prisma.project.delete({
       where: { slug },
     });
-    return NextResponse.json({ success: true });
+    return NextResponse.json({ success: true }, { headers: noCacheHeaders });
   } catch (error: any) {
-    return NextResponse.json({ success: false, error: error.message }, { status: 500 });
+    return NextResponse.json({ success: false, error: error.message }, { status: 500, headers: noCacheHeaders });
   }
 }

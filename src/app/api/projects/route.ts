@@ -2,6 +2,13 @@ import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 
 export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
+const noCacheHeaders = {
+  'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+  'Pragma': 'no-cache',
+  'Expires': '0',
+};
 
 export async function GET(request: Request) {
   try {
@@ -46,10 +53,10 @@ export async function GET(request: Request) {
       },
     });
 
-    return NextResponse.json({ success: true, projects });
+    return NextResponse.json({ success: true, projects }, { headers: noCacheHeaders });
   } catch (error: any) {
     console.error('Projects GET API error:', error);
-    return NextResponse.json({ success: false, error: 'Database connection failed' }, { status: 500 });
+    return NextResponse.json({ success: false, error: 'Database connection failed' }, { status: 500, headers: noCacheHeaders });
   }
 }
 
@@ -62,7 +69,7 @@ export async function POST(request: Request) {
         title: body.title,
         category: body.category || 'Graphic Design',
         description: body.description,
-        client: body.client,
+        client: body.client || null,
         year: body.year || new Date().getFullYear().toString(),
         featured: body.featured || false,
         status: body.status || 'published',
@@ -78,9 +85,9 @@ export async function POST(request: Request) {
       },
     });
 
-    return NextResponse.json({ success: true, project });
+    return NextResponse.json({ success: true, project }, { headers: noCacheHeaders });
   } catch (error: any) {
     console.error('Projects POST API error:', error);
-    return NextResponse.json({ success: false, error: error.message }, { status: 500 });
+    return NextResponse.json({ success: false, error: error.message }, { status: 500, headers: noCacheHeaders });
   }
 }

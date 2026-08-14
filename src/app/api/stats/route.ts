@@ -2,16 +2,23 @@ import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 
 export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
+const noCacheHeaders = {
+  'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+  'Pragma': 'no-cache',
+  'Expires': '0',
+};
 
 export async function GET() {
   try {
     const stats = await prisma.statItem.findMany({
       orderBy: { order: 'asc' },
     });
-    return NextResponse.json({ success: true, stats });
+    return NextResponse.json({ success: true, stats }, { headers: noCacheHeaders });
   } catch (error: any) {
     console.error('Stats GET error:', error);
-    return NextResponse.json({ success: false, error: 'Database connection failed' }, { status: 500 });
+    return NextResponse.json({ success: false, error: 'Database connection failed' }, { status: 500, headers: noCacheHeaders });
   }
 }
 
@@ -28,10 +35,10 @@ export async function POST(request: Request) {
         order: body.order || 0,
       },
     });
-    return NextResponse.json({ success: true, stat });
+    return NextResponse.json({ success: true, stat }, { headers: noCacheHeaders });
   } catch (error: any) {
     console.error('Stats POST error:', error);
-    return NextResponse.json({ success: false, error: error.message }, { status: 500 });
+    return NextResponse.json({ success: false, error: error.message }, { status: 500, headers: noCacheHeaders });
   }
 }
 
@@ -43,10 +50,10 @@ export async function PUT(request: Request) {
       where: { id },
       data,
     });
-    return NextResponse.json({ success: true, stat });
+    return NextResponse.json({ success: true, stat }, { headers: noCacheHeaders });
   } catch (error: any) {
     console.error('Stats PUT error:', error);
-    return NextResponse.json({ success: false, error: error.message }, { status: 500 });
+    return NextResponse.json({ success: false, error: error.message }, { status: 500, headers: noCacheHeaders });
   }
 }
 
@@ -54,11 +61,11 @@ export async function DELETE(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
     const id = searchParams.get('id');
-    if (!id) return NextResponse.json({ success: false, error: 'ID is required' }, { status: 400 });
+    if (!id) return NextResponse.json({ success: false, error: 'ID is required' }, { status: 400, headers: noCacheHeaders });
     await prisma.statItem.delete({ where: { id } });
-    return NextResponse.json({ success: true });
+    return NextResponse.json({ success: true }, { headers: noCacheHeaders });
   } catch (error: any) {
     console.error('Stats DELETE error:', error);
-    return NextResponse.json({ success: false, error: error.message }, { status: 500 });
+    return NextResponse.json({ success: false, error: error.message }, { status: 500, headers: noCacheHeaders });
   }
 }
